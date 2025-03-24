@@ -1,2 +1,3 @@
 # Linguagem-de-programacao-1
-Este é um repositório da disciplina de Linguagem de programação 1 em Java
+Este repositório contém os projetos desenvolvidos na disciplina de Linguagem de Programação 1 do curso de Sistemas de Informação do IFSP-VTP
+
