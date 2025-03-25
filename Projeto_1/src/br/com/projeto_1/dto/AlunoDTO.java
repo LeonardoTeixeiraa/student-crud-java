@@ -13,6 +13,7 @@ public class AlunoDTO {
     private String telefone, email, curso, periodo, rg;
     private String nome, sobrenome;
     private String horarioIda, horarioVolta, cidadeOrigem, cep;
+    private String prontuario;
 
     public String getCep() {
         return cep;
@@ -21,7 +22,6 @@ public class AlunoDTO {
     public void setCep(String cep) {
         this.cep = cep;
     }
-    private int prontuario;
 
     public String getTelefone() {
         return telefone;
@@ -103,11 +103,11 @@ public class AlunoDTO {
         this.cidadeOrigem = cidadeOrigem;
     }
 
-    public int getProntuario() {
+    public String getProntuario() {
         return prontuario;
     }
 
-    public void setProntuario(int prontuario) {
+    public void setProntuario(String prontuario) {
         this.prontuario = prontuario;
     }
 

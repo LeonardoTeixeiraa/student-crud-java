@@ -10,8 +10,6 @@ import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,7 +26,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
     DefaultTableModel modelo_jtl_consultar_aluno;
 
     /**
-     * Creates new form ClienteVIEW
+     * Creates new form AlunoView
      */
     public AlunoVIEW() {
         initComponents();
@@ -67,6 +65,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
         rs = alunoCTR.consultarAluno(aluno, 2);
         if (rs.next()) {
             nome.setText(rs.getString("nome"));
+            prontuario.setText(rs.getString("prontuario"));
             cidadeOrigem.setText(rs.getString("cidadeOrigem"));
             rg.setText(rs.getString("rg"));
             telefone.setText(rs.getString("telefone"));
@@ -76,6 +75,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
             curso.setText(rs.getString("curso"));
             periodo.setText(rs.getString("periodo"));
             cep.setText(rs.getString("cep"));
+            System.out.println("ID do aluno selecionado: " + prontuario);
         }
     } catch (SQLException e) {
         System.out.println("Erro SQL: " + e);
@@ -127,7 +127,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
             aluno.setNome(nome.getText());
             aluno.setSobrenome(title);
             aluno.setCidadeOrigem(sobrenome.getText());
-            aluno.setProntuario(Integer.parseInt(prontuario.getText()));
+            aluno.setProntuario(prontuario.getText());
             aluno.setCep(cep.getText());
             aluno.setTelefone(telefone.getText());
             aluno.setRg(rg.getText());
@@ -148,7 +148,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
         aluno.setNome(nome.getText());
         aluno.setSobrenome(sobrenome.getText());  
         aluno.setCidadeOrigem(cidadeOrigem.getText());
-        aluno.setProntuario(Integer.parseInt(prontuario.getText()));  
+        aluno.setProntuario(prontuario.getText());  
         aluno.setCep(cep.getText());
         aluno.setTelefone(telefone.getText());
         aluno.setRg(rg.getText());
@@ -172,7 +172,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
             "Aviso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
         try {
             // Obter o prontuário do aluno selecionado na tabela
-            aluno.setProntuario(Integer.parseInt(
+            aluno.setProntuario((
                     String.valueOf(jtl_consultar_aluno.getValueAt(
                             jtl_consultar_aluno.getSelectedRow(), 0))));
             
@@ -563,13 +563,21 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.preencheTabela(pesquisa_nome.getText());
+        this.preencheTabela(pesquisa_nome.getText());   
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void jtl_consultar_alunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtl_consultar_alunoMouseClicked
-        preencheCampos(Integer.parseInt(String.valueOf(
-                jtl_consultar_aluno.getValueAt(
-                        jtl_consultar_aluno.getSelectedRow(), 0))));
+            String prontuario = String.valueOf(
+            jtl_consultar_aluno.getValueAt(
+                    jtl_consultar_aluno.getSelectedRow(), 0));
+        
+         try {
+        int id = Integer.parseInt(prontuario);
+        preencheCampos(id);
+    } catch (NumberFormatException e) {
+        System.out.println("Erro ao converter ID: " + prontuario);
+    }
+
         liberaBotoes(false, true, true, true, true);
     }//GEN-LAST:event_jtl_consultar_alunoMouseClicked
 

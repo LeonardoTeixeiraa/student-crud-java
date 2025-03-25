@@ -21,8 +21,9 @@ public class AlunoDAO {
     try {
         ConexaoDAO.connectionDB();
         stmt = ConexaoDAO.conn.createStatement();
-        String query = "INSERT INTO alunos (nome, cidadeOrigem, horarioIda, "
+        String query = "INSERT INTO alunos (prontuario, nome, cidadeOrigem, horarioIda, "
                 + "horarioVolta, telefone, sobrenome, email, curso, periodo, cep, rg) VALUES ("
+                + "'" + aluno.getProntuario()+ "',"
                 + "'" + aluno.getNome() + "',"
                 + "'" + aluno.getCidadeOrigem() + "',"
                 + "'" + aluno.getHorarioIda() + "',"
@@ -112,22 +113,31 @@ public class AlunoDAO {
     }
 
     public boolean excluirAluno(AlunoDTO alunoDTO) {
-        try {
+       try {
+            //Chama o metodo que esta na classe ConexaoDAO para abrir o banco de dados
             ConexaoDAO.connectionDB();
-
+            //Instancia o Statement que responsavel por executar alguma coisa no banco de dados
             stmt = ConexaoDAO.conn.createStatement();
-            String comando = "Delete from alunos where prontuario= "
-                    + alunoDTO.getProntuario();
+            //Comando SQL que sera executado no banco de dados
+            String comando = "Delete from alunos where prontuario = '"
+                    + alunoDTO.getProntuario()+"'";
+            //Executa o comando SQL no banco de Dados
             stmt.execute(comando);
+     
+            //Da um commit no banco de dados
             ConexaoDAO.conn.commit();
+            //Fecha o statement
             stmt.close();
             return true;
-        } catch (Exception e) {
+        } //Caso tenha algum erro no codigo acima é enviado uma mensagem no
+        //console com o que esta acontecendo.
+        catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
-        } finally {
+        } //Independente de dar erro ou não ele vai fechar o banco de dados.
+        finally {
+            //Chama o metodo da classe ConexaoDAO para fechar o banco de dados
             ConexaoDAO.closeDB();
         }
     }
-
 }

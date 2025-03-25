@@ -56,10 +56,7 @@ public class AlunoCTR {
         return message;
     }
     
-    public void closeDB(){
-        ConexaoDAO.closeDB();
-    };
-    
+  
     public String excluir(AlunoDTO alunoDTO){
         try{
             if(alunoDAO.excluirAluno(alunoDTO)){
@@ -75,5 +72,8 @@ public class AlunoCTR {
         }
     }
     
-   
+     public void closeDB(){
+        ConexaoDAO.closeDB();
+    };
+    
 }
