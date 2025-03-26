@@ -240,7 +240,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
 
         clienteLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         clienteLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        clienteLabel.setText("Cadastro Aluno");
+        clienteLabel.setText("Cadastro de Alunos");
 
         jLabel1.setText("Nome:");
 
@@ -279,6 +279,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
 
         rg.setNextFocusableComponent(btnSalvar);
 
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/1564491_add_create_new_plus_icon(1).png"))); // NOI18N
         btnNovo.setText("Novo");
         btnNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -287,6 +288,8 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
             }
         });
 
+        btnSalvar.setBackground(new java.awt.Color(0, 153, 0));
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/2639912_save_icon(1).png"))); // NOI18N
         btnSalvar.setText("Salvar");
         btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -295,6 +298,8 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
             }
         });
 
+        btnExcluir.setBackground(new java.awt.Color(255, 0, 0));
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/8664938_trash_can_delete_remove_icon.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -303,6 +308,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
             }
         });
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/9004772_cross_delete_cancel_remove_icon.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -311,6 +317,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
             }
         });
 
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/9104334_sign out_logout_exit_out_icon(1).png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnSair.addActionListener(new java.awt.event.ActionListener() {
@@ -324,7 +331,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Nome"
+                "Prontuario", "Nome"
             }
         ));
         jtl_consultar_aluno.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -336,6 +343,13 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Nome:");
 
+        pesquisa_nome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisa_nomeActionPerformed(evt);
+            }
+        });
+
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/3844432_magnifier_search_zoom_icon(2).png"))); // NOI18N
         btnPesquisar.setText("OK");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,7 +397,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(827, 827, 827)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, Short.MAX_VALUE))
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -402,12 +416,29 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(sobrenome, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(sobrenome, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(38, 38, 38))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(83, 83, 83)
+                                                .addComponent(btnSalvar)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(horarioIda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel13)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(horarioVolta, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                     .addComponent(cidadeOrigem, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -419,27 +450,24 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(cep, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addGap(22, 22, 22)
-                                                .addComponent(horarioIda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jLabel13)
-                                                .addGap(12, 12, 12)
-                                                .addComponent(horarioVolta, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addGroup(layout.createSequentialGroup()
                                                 .addComponent(prontuario, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(jLabel9)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(rg, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                .addComponent(curso, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jLabel11)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(periodo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(38, 38, 38)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(btnCancelar)
+                                                    .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(curso, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(jLabel11)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(periodo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(65, 65, 65)
+                                                .addComponent(btnExcluir)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel10)
@@ -448,14 +476,8 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(53, 53, 53))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(214, Short.MAX_VALUE)
+                        .addGap(72, 72, 72)
                         .addComponent(btnNovo)
-                        .addGap(83, 83, 83)
-                        .addComponent(btnSalvar)
-                        .addGap(94, 94, 94)
-                        .addComponent(btnCancelar)
-                        .addGap(94, 94, 94)
-                        .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSair)))
                 .addGap(8, 8, 8))
@@ -476,15 +498,10 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnNovo)
-                            .addComponent(btnSalvar)
-                            .addComponent(btnExcluir)
-                            .addComponent(btnCancelar)
-                            .addComponent(btnSair))
+                        .addComponent(btnSair)
                         .addGap(29, 29, 29))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -521,7 +538,13 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
                             .addComponent(horarioIda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13)
                             .addComponent(horarioVolta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnNovo)
+                            .addComponent(btnSalvar)
+                            .addComponent(btnCancelar)
+                            .addComponent(btnExcluir))
+                        .addContainerGap())))
         );
 
         pack();
@@ -563,7 +586,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.preencheTabela(pesquisa_nome.getText());   
+        this.preencheTabela(pesquisa_nome.getText().toUpperCase());   
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void jtl_consultar_alunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtl_consultar_alunoMouseClicked
@@ -613,6 +636,10 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailActionPerformed
+
+    private void pesquisa_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisa_nomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pesquisa_nomeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

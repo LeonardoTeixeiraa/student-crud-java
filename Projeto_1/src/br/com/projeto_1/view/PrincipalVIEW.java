@@ -66,7 +66,7 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         menuCadastro.setText("Cadastro");
 
         itemMenuCliente.setMnemonic('a');
-        itemMenuCliente.setText("Cliente");
+        itemMenuCliente.setText("Aluno");
         itemMenuCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 itemMenuClienteMouseClicked(evt);
