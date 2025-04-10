@@ -48,6 +48,7 @@ public class FornecedorCTR {
     }
 
     public String alterarFornecedor(FornecedorDTO fornecedorDTO) {
+        
         try{
             //chama o metodo que esta na classe DAO aguardando uma resposta (true ou false)
             if(fornecedorDAO.alterarFornecedor(fornecedorDTO)){
@@ -58,7 +59,7 @@ public class FornecedorCTR {
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
-            return "Fornecedor NÃO alterado!!";
+            return " Fornecedor NÃO alterado!!";
         }
     }
 

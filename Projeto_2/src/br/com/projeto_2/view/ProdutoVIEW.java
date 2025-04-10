@@ -26,15 +26,15 @@ public class ProdutoVIEW extends javax.swing.JInternalFrame {
     
     
     ResultSet rs; //Variavel usada para preenchimento da tabela e dos campos
-    DefaultTableModel modelo_jtl_consultar_produto; //Varaivel para guardar o modelo da tabela
+    DefaultTableModel modelo_jtl_consultar_produto; //Variavel para guardar o modelo da tabela
     DefaultTableModel modelo_jtl_consultar_fornecedor; // Variavel para guardar o modelo dda tabela
     
     public void setPosicao(){
         Dimension d = this.getDesktopPane().getSize();
-        this.setLocation(d.width -  this.getSize().width / 2, (d.height - this.getSize().height / 2));
+        this.setLocation((d.width -  this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
     }
     
-    private void gravar(){
+     private void gravar(){
         try {
             produtoDTO.setNome_prod(nome_prod.getText());
             produtoDTO.setDesc_prod(desc_prod.getText());
@@ -62,10 +62,10 @@ public class ProdutoVIEW extends javax.swing.JInternalFrame {
             produtoDTO.setP_venda_prod(Double.parseDouble(p_venda_prod.getText()));
             fornecedorDTO.setId_for(Integer.parseInt(String.valueOf(
                     jtl_consultar_fornecedor.getValueAt(
-                            jtl_consultar_fornecedor.getSelectedRow(), 0))));
+                    jtl_consultar_fornecedor.getSelectedRow(), 0))));
             
             JOptionPane.showMessageDialog(null,
-                    produtoCTR.inserirProduto(produtoDTO, fornecedorDTO));
+                    produtoCTR.alterarProduto(produtoDTO, fornecedorDTO));
             
         } catch (Exception e) {
             System.out.println("Erro ao alterar " + e.getMessage());
@@ -112,10 +112,10 @@ public class ProdutoVIEW extends javax.swing.JInternalFrame {
     private void preencheTabelaProdutos(String nome_prod){
         try {
             //Limpa todas as linhas
-            modelo_jtl_consultar_fornecedor.setNumRows(0);
+            modelo_jtl_consultar_produto.setNumRows(0);
             //Enquanto tiver linhas  - faça
             produtoDTO.setNome_prod(nome_prod);
-            rs = produtoCTR.consultarFornecedor(produtoDTO, 1);
+            rs = produtoCTR.consultarProduto(produtoDTO, 1);
             while(rs.next()){
                 modelo_jtl_consultar_produto.addRow(new Object[]{
                     rs.getString("id_prod"),
@@ -171,6 +171,8 @@ private void preencheCamposProduto(int id_prod) {
                 rs.getInt("id_for"), rs.getString("nome_for")
             });
             jtl_consultar_fornecedor.setRowSelectionInterval(0, 0);
+            gravar_alterar = 2;
+            liberaCampos(true);
         }
     } catch (Exception e) {
         System.out.println("Erro ao preencher campos do produto: " + e.getMessage());
@@ -570,6 +572,7 @@ public ProdutoVIEW() {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
+        System.out.println("Valor de gravar_alterar: " + gravar_alterar);
     if (gravar_alterar == 1) {
         gravar();
         gravar_alterar = 0;
@@ -598,6 +601,7 @@ public ProdutoVIEW() {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
         excluir();
+        limpaCampos();
         liberaCampos(false);
         liberaBotoes(true, false, false, false, true);
         modelo_jtl_consultar_produto.setNumRows(0);
