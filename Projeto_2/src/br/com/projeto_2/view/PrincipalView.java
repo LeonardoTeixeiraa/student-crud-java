@@ -6,6 +6,9 @@
 package br.com.projeto_2.view;
 
 import javax.swing.JOptionPane;
+import java.awt.Image;
+import java.awt.Graphics;
+import javax.swing.ImageIcon;   
 
 /**
  *
@@ -29,7 +32,14 @@ public class PrincipalView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktopPane = new javax.swing.JDesktopPane();
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("imagens/tela_inicial.jpg"));
+        Image image = imageIcon .getImage();
+        desktopPane = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics graphics){
+                graphics.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
+        ;
         menuBar = new javax.swing.JMenuBar();
         menuCadastrar = new javax.swing.JMenu();
         itemMenuFornecedor = new javax.swing.JMenuItem();
@@ -81,7 +91,10 @@ public class PrincipalView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1233, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1059, Short.MAX_VALUE)
+                .addGap(168, 168, 168))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,7 +105,7 @@ public class PrincipalView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemMenuProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutoActionPerformed
-        System.exit(0);
+        abreProdutoVIEW();
     }//GEN-LAST:event_itemMenuProdutoActionPerformed
 
     private void itemMenuFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuFornecedorActionPerformed
@@ -155,6 +168,14 @@ private void abreFornecedorVIEW(){
     fornecedorVIEW.setVisible(true);
     fornecedorVIEW.setPosicao();
 } 
+private void abreProdutoVIEW(){
+    ProdutoVIEW produtoVIEW =  new ProdutoVIEW();
+    this.desktopPane.add(produtoVIEW);
+    produtoVIEW.setVisible(true);
+    produtoVIEW.setPosicao();
+} 
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuItem itemMenuFornecedor;

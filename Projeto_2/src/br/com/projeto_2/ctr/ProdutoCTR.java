@@ -62,7 +62,13 @@ public class ProdutoCTR {
             return "Fornecedor NÃO alterado!!";
         }
     }//Fecha o metodo alterarProduto
-
+    
+    public ResultSet consultarProduto(ProdutoDTO produtoDTO,  int opcao){
+        ResultSet rs = null;
+        rs = produtoDAO.consultarProduto(produtoDTO, opcao);
+        return rs;          
+    }
+    
     public String excluirProduto(ProdutoDTO produtoDTO) {
         try{
             //chama o metodo que esta na classe DAO aguardando uma resposta (true ou false)
