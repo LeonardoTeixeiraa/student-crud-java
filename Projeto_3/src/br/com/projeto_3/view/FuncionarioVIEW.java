@@ -8,15 +8,158 @@ package br.com.projeto_3.view;
  *
  * @author leonardo-teixeira
  */
+import java.awt.Dimension;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+import br.com.projeto_3.dto.FuncionarioDTO;
+import br.com.projeto_3.ctr.FuncionarioCTR;
+
 public class FuncionarioVIEW extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FuncionarioVIEW
      */
+    FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
+    FuncionarioCTR funcionarioCTR = new FuncionarioCTR();
+
+    int gravar_alterar;
+
+    ResultSet rs;
+    DefaultTableModel modelo_jtl_consultar_funcionario;
+
     public FuncionarioVIEW() {
         initComponents();
+        
+        //chama todos os métodosé liberaCampos
+        liberaCampos(false);
+        //chama o métodoé liberaBotõesõ
+        liberaBotoes(true, false, false, false, true);
+        
+        modelo_jtl_consultar_funcionario = (DefaultTableModel) jtl_consultar_funcionario.getModel();
     }
 
+    public void setPosicao() {
+        Dimension d = this.getDesktopPane().getSize();
+        this.setLocation(d.width - this.getSize().width / 2, (d.width - this.getSize().height) / 2);
+    }
+
+    private void gravar() {
+        try {
+            funcionarioDTO.setNome_fun(nome_fun.getText());
+            funcionarioDTO.setCpf_fun(cpf_fun.getText());
+            funcionarioDTO.setLogin_fun(login_fun.getText());
+            funcionarioDTO.setSenha_fun(String.valueOf(senha_fun.getPassword()));
+            funcionarioDTO.setTipo_fun(tipo_fun.getSelectedItem().toString());
+
+            JOptionPane.showMessageDialog(null,
+                    funcionarioCTR.inserirFuncionario(funcionarioDTO)
+            );
+        } catch (Exception e) {
+            System.out.println("Erro ao Gravar" + e.getMessage());
+        }
+    } // Fecha método gravar()
+
+    private void alterar() {
+        try {
+            funcionarioDTO.setNome_fun(nome_fun.getText());
+            funcionarioDTO.setCpf_fun(cpf_fun.getText());
+            funcionarioDTO.setLogin_fun(login_fun.getText());
+            funcionarioDTO.setSenha_fun(String.valueOf(senha_fun.getPassword()));
+            funcionarioDTO.setTipo_fun(tipo_fun.getSelectedItem().toString());
+
+            if ((checkAlterarSenha.isSelected()) && (senha_fun.getPassword().length != 0)) {
+                funcionarioDTO.setSenha_fun(String.valueOf(senha_fun.getPassword()));
+            } else {
+                funcionarioDTO.setSenha_fun(null);
+            }
+            JOptionPane.showMessageDialog(null,
+                    funcionarioCTR.alterarFuncionario(funcionarioDTO)
+            );
+        } catch (Exception e) {
+            System.out.println("Erro ao Alterar" + e.getMessage());
+        }
+    } // Fecha método alterar()
+
+    private void excluir() {
+        if (JOptionPane.showConfirmDialog(null, "Deseja Realmente excluir o Funcionario?", "Aviso",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null,
+                    funcionarioCTR.excluirFuncionario(funcionarioDTO)
+            );
+        }
+    } // Fecha método excluir()
+
+    private void liberaCampos(boolean a) {
+        nome_fun.setEnabled(a);
+        cpf_fun.setEnabled(a);
+        login_fun.setEnabled(a);
+        tipo_fun.setEnabled(a);
+        senha_fun.setEnabled(a);
+        checkAlterarSenha.setEnabled(a);
+    } // Fecha método liberaCampos(boolean a)
+
+    private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e) {
+        btnNovo.setEnabled(a);
+        btnSalvar.setEnabled(b);
+        btnCancelar.setEnabled(c);
+        btnExcluir.setEnabled(d);
+        btnSair.setEnabled(e);
+    } // Fecha método liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e)
+
+    private void limpaCampos() {
+        nome_fun.setText("");
+        cpf_fun.setText("");
+        login_fun.setText("");
+        senha_fun.setText("");
+        checkAlterarSenha.setSelected(false);
+    } // Fecha método limpaCampos()
+
+    private void preencheTabela(String nome_fun) {
+        try {
+            // Limpa todas as linhas
+            modelo_jtl_consultar_funcionario.setNumRows(0);
+            // Enquanto tiver linhas - faça
+            funcionarioDTO.setNome_fun(nome_fun);
+            rs = funcionarioCTR.consultarFuncionario(funcionarioDTO, 1); // 1 é a pesquisa por nome na classe DAO
+            while (rs.next()) {
+                modelo_jtl_consultar_funcionario.addRow(new Object[]{
+                    rs.getString("id_fun"),
+                    rs.getString("nome_fun"),});
+            }
+        } catch (Exception e) {
+            System.out.println("Erro preencheTabela: " + e.getMessage());
+        } finally {
+            funcionarioCTR.CloseDB();
+        }
+    }// Fecha método preencheTabela(String nome_fun)
+
+    private void preencheCampos(int id_fun) {
+        try {
+            funcionarioDTO.setId_fun(id_fun);
+            rs = funcionarioCTR.consultarFuncionario(funcionarioDTO, 2); // 2 é a pesquisa no id na classe DAO
+            if (rs.next()) {
+                limpaCampos();
+                nome_fun.setText(rs.getString("nome_fun"));
+                cpf_fun.setText(rs.getString("cpf_fun"));
+                login_fun.setText(rs.getString("login_fun"));
+                tipo_fun.setSelectedItem(rs.getString("tipo_fun"));
+
+                gravar_alterar = 2;
+                liberaCampos(true);
+                senha_fun.setEnabled(false);
+                checkAlterarSenha.setSelected(false);
+            } // fecha if (rs.next)
+        } // fecha try
+        catch (Exception e) {
+            System.out.println("Erro preencheCampos: " + e.getMessage());
+        } finally {
+            funcionarioCTR.CloseDB();
+        }
+    }// Fecha método preencheCampos(int id_for)
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,7 +226,7 @@ public class FuncionarioVIEW extends javax.swing.JInternalFrame {
             }
         });
 
-        tipo_fun.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Comum", " " }));
+        tipo_fun.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Comum", "" }));
         tipo_fun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipo_funActionPerformed(evt);
@@ -213,12 +356,13 @@ public class FuncionarioVIEW extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(nome_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(pesquisa_nome_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(nome_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)
+                        .addComponent(pesquisa_nome_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
