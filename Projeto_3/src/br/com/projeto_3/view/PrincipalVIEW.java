@@ -200,6 +200,13 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         vendaVIEW.setVisible(true);
         vendaVIEW.setPosicao();
     }
+    
+     private void abreFuncionarioVIEW(){
+        FuncionarioVIEW funcionarioVIEW = new FuncionarioVIEW();
+        this.desktopPane.add(funcionarioVIEW);
+        funcionarioVIEW.setVisible(true);
+        funcionarioVIEW.setPosicao();
+    }
     /**
      * @param args the command line arguments
      */
