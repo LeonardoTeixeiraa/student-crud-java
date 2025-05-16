@@ -157,8 +157,7 @@ public class FuncionarioVIEW extends javax.swing.JInternalFrame {
             funcionarioCTR.CloseDB();
         }
     }// Fecha método preencheCampos(int id_for)
-    
-    
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -217,6 +216,12 @@ public class FuncionarioVIEW extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Senha:");
 
+        senha_fun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senha_funActionPerformed(evt);
+            }
+        });
+
         jLabel6.setText("Tipo:");
 
         checkAlterarSenha.setText("Alterar Senha");
@@ -247,6 +252,11 @@ public class FuncionarioVIEW extends javax.swing.JInternalFrame {
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_3/view/imagens/novo.png"))); // NOI18N
         btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_3/view/imagens/salvar.png"))); // NOI18N
         btnSalvar.setText("Salvar");
@@ -266,9 +276,19 @@ public class FuncionarioVIEW extends javax.swing.JInternalFrame {
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_3/view/imagens/sair.png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_3/view/imagens/excluir.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jtl_consultar_funcionario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -281,6 +301,11 @@ public class FuncionarioVIEW extends javax.swing.JInternalFrame {
                 "ID", "Nome"
             }
         ));
+        jtl_consultar_funcionario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtl_consultar_funcionarioMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtl_consultar_funcionario);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -420,6 +445,12 @@ public class FuncionarioVIEW extends javax.swing.JInternalFrame {
 
     private void checkAlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAlterarSenhaActionPerformed
         // TODO add your handling code here:
+        if(checkAlterarSenha.isSelected()){
+            senha_fun.setEnabled(true);
+        }else{
+            senha_fun.setEnabled(false);
+            senha_fun.setText(null);
+        }
     }//GEN-LAST:event_checkAlterarSenhaActionPerformed
 
     private void tipo_funActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipo_funActionPerformed
@@ -428,15 +459,69 @@ public class FuncionarioVIEW extends javax.swing.JInternalFrame {
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
+        preencheTabela(pesquisa_nome_fun.getText());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        limpaCampos();
+        liberaCampos(false);
+        modelo_jtl_consultar_funcionario.setNumRows(0);
+        liberaBotoes(true, false, false, false, true);
+        gravar_alterar = 0;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
+        if(gravar_alterar == 1){
+            gravar();
+            gravar_alterar = 0;
+        }else{
+            if(gravar_alterar == 2){
+                alterar();
+                gravar_alterar = 0;
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro no sistema!");
+            }
+        }
+        limpaCampos();
+        liberaCampos(false);
+        liberaBotoes(true, false, false, false, true);
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        // TODO add your handling code here:
+        liberaCampos(true);
+        checkAlterarSenha.setEnabled(false);
+        liberaBotoes(false, true, true, false, true);
+        gravar_alterar = 1;
+    }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        excluir();
+        limpaCampos();
+        liberaCampos(false);
+        liberaBotoes(true, false, false, false, true);
+        modelo_jtl_consultar_funcionario.setNumRows(0);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void jtl_consultar_funcionarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtl_consultar_funcionarioMouseClicked
+        // TODO add your handling code here:
+        preencheCampos(Integer.parseInt(String.valueOf
+        (jtl_consultar_funcionario.getValueAt
+        (jtl_consultar_funcionario.getSelectedRow(), 0))));
+        liberaBotoes(false, true, true, true, true);
+    }//GEN-LAST:event_jtl_consultar_funcionarioMouseClicked
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void senha_funActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senha_funActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senha_funActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

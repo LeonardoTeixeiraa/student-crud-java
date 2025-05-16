@@ -185,7 +185,7 @@ public class FornecedorVIEW extends javax.swing.JInternalFrame {
             } // fecha if (rs.next)
         } // fecha try
         catch (Exception e) {
-            System.out.println("Erro preencheCampos: " + e.getMessage());
+            System.out.println("Erro SQL: " + e);
         } finally {
             fornecedorCTR.CloseDB();
         }

@@ -8,7 +8,7 @@ package br.com.projeto_3.view;
  *
  * @author leonardo-teixeira
  */
-import javax.swing.JOptionPane;;
+import javax.swing.JOptionPane;
 import br.com.projeto_3.dto.FuncionarioDTO;
 import br.com.projeto_3.ctr.FuncionarioCTR;
 

@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.awt.Image;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
+import  br.com.projeto_3.dto.FuncionarioDTO;
 /**
  *
  * @author leonardo-teixeira
@@ -18,8 +19,13 @@ public class PrincipalVIEW extends javax.swing.JFrame {
     /**
      * Creates new form PrincipalVIEW
      */
-    public PrincipalVIEW() {
+    
+    public PrincipalVIEW(FuncionarioDTO funcionarioDTO) {
         initComponents();
+        this.setLocationRelativeTo(null);
+        if(funcionarioDTO.getTipo_fun().equalsIgnoreCase("COMUM")){
+            itemMenuFuncionario.setVisible(false);
+        }
     }
 
     private void sair() {
@@ -50,6 +56,7 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         itemMenuFornecedor = new javax.swing.JMenuItem();
         itemMenuProduto = new javax.swing.JMenuItem();
         itemMenuCliente = new javax.swing.JMenuItem();
+        itemMenuFuncionario = new javax.swing.JMenuItem();
         menuVenda = new javax.swing.JMenu();
         itemMenuVenda = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
@@ -58,6 +65,11 @@ public class PrincipalVIEW extends javax.swing.JFrame {
 
         menuCadastro.setMnemonic('f');
         menuCadastro.setText("Cadastro");
+        menuCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCadastroActionPerformed(evt);
+            }
+        });
 
         itemMenuFornecedor.setMnemonic('o');
         itemMenuFornecedor.setText("Fornecedor");
@@ -90,6 +102,14 @@ public class PrincipalVIEW extends javax.swing.JFrame {
             }
         });
         menuCadastro.add(itemMenuCliente);
+
+        itemMenuFuncionario.setText("Funcionario");
+        itemMenuFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuFuncionarioActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(itemMenuFuncionario);
 
         menuBar.add(menuCadastro);
 
@@ -164,6 +184,15 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         abreVendaVIEW();
     }//GEN-LAST:event_itemMenuVendaActionPerformed
 
+    private void menuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuCadastroActionPerformed
+
+    private void itemMenuFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuFuncionarioActionPerformed
+        // TODO add your handling code here:
+        abreFuncionarioVIEW();
+    }//GEN-LAST:event_itemMenuFuncionarioActionPerformed
+
     /**
      * Método para abrir a classe FornecedorVIEW.
      */
@@ -210,45 +239,12 @@ public class PrincipalVIEW extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PrincipalVIEW().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuItem itemMenuCliente;
     private javax.swing.JMenuItem itemMenuFornecedor;
+    private javax.swing.JMenuItem itemMenuFuncionario;
     private javax.swing.JMenuItem itemMenuProduto;
     private javax.swing.JMenuItem itemMenuVenda;
     private javax.swing.JMenuBar menuBar;
