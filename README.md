@@ -20,10 +20,11 @@ O sistema implementa as operações básicas de um **CRUD (Create, Read, Update,
 
 ## 🗂 Estrutura do Projeto
 
+```plaintext
 src/br/com/projeto_1/
-├── controller/ # Lógica de controle
-├── dto/ # Classes de entidade (Aluno)
-├── view/ # Interfaces gráficas Swing
-└── dao/ # Camada lógica(regras de negócio)
+├── controller/   # Lógica de controle
+├── dto/          # Classes de entidade (Aluno)
+├── view/         # Interfaces gráficas Swing
+└── dao/          # Camada lógica (regras de negócio)
 
 📚Este projeto é local e não foi publicado em ambiente de produção. Seu objetivo principal é fins de aprendizado e demonstração de conhecimentos com Java e banco de dados.
