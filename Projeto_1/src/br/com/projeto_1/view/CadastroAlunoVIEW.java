@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Leonardo
  */
-public class AlunoVIEW extends javax.swing.JInternalFrame {
+public class CadastroAlunoVIEW extends javax.swing.JInternalFrame {
 
     AlunoDTO aluno = new AlunoDTO();
     AlunoCTR alunoCTR = new AlunoCTR();
@@ -28,7 +28,7 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
     /**
      * Creates new form AlunoView
      */
-    public AlunoVIEW() {
+    public CadastroAlunoVIEW() {
         initComponents();
         liberaCampos(false);
         liberaBotoes(true, false, false, false, true);
@@ -679,4 +679,8 @@ public class AlunoVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JTextField sobrenome;
     private javax.swing.JTextField telefone;
     // End of variables declaration//GEN-END:variables
+
+    void setLocationRelativeTo(Object object) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

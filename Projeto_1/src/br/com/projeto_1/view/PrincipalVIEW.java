@@ -4,8 +4,9 @@
  */
 package br.com.projeto_1.view;
 
-import br.com.projeto_1.ctr.AlunoCTR;
+import br.com.projeto_1.dto.FuncionarioDTO;
 import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 
 /**
  *
@@ -16,32 +17,44 @@ public class PrincipalVIEW extends javax.swing.JFrame {
     /**
      * Creates new form PrincipalVIEW
      */
-    public PrincipalVIEW() {
+    private FuncionarioDTO funcionarioDTO;
+
+    public PrincipalVIEW(FuncionarioDTO funcionarioDTO) {
+        this.funcionarioDTO = funcionarioDTO; // armazena o usuário logado
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // inicia maximizado
+        setLocationRelativeTo(null);
     }
 
-     /**
-     * Exit menu from PrincipalVIEW
-     */
-    private void sair(){
-        Object[] options = {"Sair", "Cancelar"};
-        
-        if(JOptionPane.showOptionDialog(null, "Deseja sair do Sistema?", "Informação", 
-                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]) == 0){
-            System.exit(0);
-            
+    public PrincipalVIEW( boolean abrirCadastroAluno) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+
+        if (abrirCadastroAluno) {
+            abreAluno();
         }
     }
-    
-    private void abreAluno(){
-        AlunoVIEW alunoVIEW = new AlunoVIEW();
+
+    /**
+     * Exit menu from PrincipalVIEW
+     */
+    private void sair() {
+        Object[] options = {"Sair", "Cancelar"};
+
+        if (JOptionPane.showOptionDialog(null, "Deseja sair do Sistema?", "Informação",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]) == 0) {
+            System.exit(0);
+
+        }
+    }
+
+    public void abreAluno() {
+        CadastroAlunoVIEW alunoVIEW = new CadastroAlunoVIEW();
         this.desktopPane.add(alunoVIEW);
         alunoVIEW.setVisible(true);
         alunoVIEW.setPosicao();
     }
 
-
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -124,7 +137,7 @@ public class PrincipalVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSairMouseClicked
 
     private void itemMenuClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemMenuClienteMouseClicked
-        
+
     }//GEN-LAST:event_itemMenuClienteMouseClicked
 
     private void itemMenuClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuClienteActionPerformed
@@ -134,37 +147,6 @@ public class PrincipalVIEW extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrincipalVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PrincipalVIEW().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
