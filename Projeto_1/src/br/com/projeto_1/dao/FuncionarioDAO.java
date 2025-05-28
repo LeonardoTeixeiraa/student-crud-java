@@ -15,12 +15,12 @@ public class FuncionarioDAO {
             ConexaoDAO.connectionDB();
             stmt = ConexaoDAO.conn.createStatement();
 
-            String comando = "INSERT INTO funcionario (nome_fun, cpf_fun, login_fun, senha_fun, tipo_fun, cnh_fun) VALUES ("
+            String comando = "INSERT INTO funcionario (nome_fun, cpf_fun, login_fun, senha_fun, cargo_fun, cnh_fun) VALUES ("
                     + "'" + funcionarioDTO.getNome_fun() + "', "
                     + "'" + funcionarioDTO.getCpf_fun() + "', "
                     + "'" + funcionarioDTO.getLogin_fun() + "', "
                     + "crypt('" + funcionarioDTO.getSenha_fun() + "', gen_salt('bf', 8)), "
-                    + "'" + funcionarioDTO.getTipo_fun() + "', ";
+                    + "'" + funcionarioDTO.getCargo_fun() + "', ";
 
             // Verifica se é um motorista
             if (funcionarioDTO instanceof MotoristaDTO) {
@@ -57,14 +57,14 @@ public class FuncionarioDAO {
                         + "nome_fun = '" + funcionarioDTO.getNome_fun() + "', "
                         + "cpf_fun = '" + funcionarioDTO.getCpf_fun() + "', "
                         + "login_fun = '" + funcionarioDTO.getLogin_fun() + "', "
-                        + "tipo_fun = '" + funcionarioDTO.getTipo_fun() + "', ";
+                        + "cargo_fun = '" + funcionarioDTO.getCargo_fun() + "', ";
             } else {
                 comando = "UPDATE funcionario SET "
                         + "nome_fun = '" + funcionarioDTO.getNome_fun() + "', "
                         + "cpf_fun = '" + funcionarioDTO.getCpf_fun() + "', "
                         + "login_fun = '" + funcionarioDTO.getLogin_fun() + "', "
                         + "senha_fun = crypt('" + funcionarioDTO.getSenha_fun() + "', gen_salt('bf', 8)), "
-                        + "tipo_fun = '" + funcionarioDTO.getTipo_fun() + "', ";
+                        + "cargo_fun = '" + funcionarioDTO.getCargo_fun()+ "', ";
             }
 
             // CNH se for motorista
@@ -143,16 +143,15 @@ public class FuncionarioDAO {
             ConexaoDAO.connectionDB();
             stmt = ConexaoDAO.conn.createStatement();
 
-            String comando = "SELECT f.id_fun, f.nome_fun, f.tipo_fun FROM funcionario f "
+            String comando = "SELECT f.id_fun, f.nome_fun, f.cargo_fun FROM funcionario f "
                     + "WHERE f.login_fun = '" + funcionarioDTO.getLogin_fun() + "' "
                     + "AND f.senha_fun = crypt('" + funcionarioDTO.getSenha_fun() + "', f.senha_fun)";
 
             rs = stmt.executeQuery(comando);
 
             if (rs.next()) {
-                return rs.getString("tipo_fun"); // "motorista" ou "secretario"
+                return rs.getString("cargo_fun"); 
             }
-
             return null;
 
         } catch (Exception e) {

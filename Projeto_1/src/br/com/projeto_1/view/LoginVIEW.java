@@ -42,7 +42,7 @@ public class LoginVIEW extends javax.swing.JFrame {
         funcionarioDTO.setSenha_fun(String.valueOf(senha_fun.getPassword()));
 
         String tipo = funcionarioCTR.logarFuncionario(funcionarioDTO);
-        funcionarioDTO.setTipo_fun(tipo);
+        funcionarioDTO.setCargo_fun(tipo);
 
         if (tipo != null && !tipo.isEmpty()) {
             this.dispose();
@@ -211,8 +211,8 @@ public class LoginVIEW extends javax.swing.JFrame {
             return;
         }
 
-        if (tipo.equals("Administrador") || tipo.equals("Funcionario")) {
-            funcionarioDTO.setTipo_fun(tipo);
+        if (tipo.equals("SECRETARIO") || tipo.equals("FUNCIONARIO")) {
+            funcionarioDTO.setCargo_fun(tipo);
             msgErro.setText("Funcionario logado com sucesso!");
             this.dispose();
             new PrincipalVIEW(funcionarioDTO).setVisible(true);

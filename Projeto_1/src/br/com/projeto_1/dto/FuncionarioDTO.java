@@ -21,11 +21,11 @@ public class FuncionarioDTO {
         this.cpf_fun = cpf_fun;
     }
 
-    public String getTipo_fun() {
+    public String getCargo_fun() {
         return cargo_fun;
     }
 
-    public void setTipo_fun(String tipo_fun) {
+    public void setCargo_fun(String tipo_fun) {
         this.cargo_fun = tipo_fun;
     }
 

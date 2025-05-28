@@ -125,17 +125,17 @@ public class CadastroAlunoVIEW extends javax.swing.JInternalFrame {
     public void gravar() {
         try {
             aluno.setNome(nome.getText());
-            aluno.setSobrenome(title);
-            aluno.setCidadeOrigem(sobrenome.getText());
+            aluno.setSobrenome(sobrenome.getText());
+            aluno.setCidadeOrigem(cidadeOrigem.getText());
             aluno.setProntuario(prontuario.getText());
             aluno.setCep(cep.getText());
             aluno.setTelefone(telefone.getText());
             aluno.setRg(rg.getText());
-            aluno.setEmail(rg.getText());
-            aluno.setHorarioIda(rg.getText());
-            aluno.setHorarioVolta(rg.getText());
-            aluno.setCurso(rg.getText());
-            aluno.setPeriodo(rg.getText());
+            aluno.setEmail(email.getText());
+            aluno.setHorarioIda(horarioIda.getText());
+            aluno.setHorarioVolta(horarioVolta.getText());
+            aluno.setCurso(curso.getText());
+            aluno.setPeriodo(periodo.getText());
 
             JOptionPane.showMessageDialog(null, alunoCTR.inserirAluno(aluno));
         } catch (Exception e) {

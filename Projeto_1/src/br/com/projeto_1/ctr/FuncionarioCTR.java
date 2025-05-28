@@ -65,8 +65,8 @@ public class FuncionarioCTR {
     public String logarFuncionario(FuncionarioDTO funcionarioDTO) {
         try {
             String tipo = funcionarioDAO.loginFuncionario(funcionarioDTO);
-
             return tipo;
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;

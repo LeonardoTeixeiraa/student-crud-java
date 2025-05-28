@@ -21,15 +21,15 @@ public class AlunoDAO {
     try {
         ConexaoDAO.connectionDB();
         stmt = ConexaoDAO.conn.createStatement();
-        String query = "INSERT INTO alunos (prontuario, nome, cidadeOrigem, horarioIda, "
-                + "horarioVolta, telefone, sobrenome, email, curso, periodo, cep, rg) VALUES ("
+        String query = "INSERT INTO alunos (prontuario, nome, sobrenome, horarioIda, "
+                + "horarioVolta, telefone, cidadeOrigem, email, curso, periodo, cep, rg) VALUES ("
                 + "'" + aluno.getProntuario()+ "',"
                 + "'" + aluno.getNome() + "',"
-                + "'" + aluno.getCidadeOrigem() + "',"
+                + "'" + aluno.getSobrenome()+ "',"
                 + "'" + aluno.getHorarioIda() + "',"
                 + "'" + aluno.getHorarioVolta() + "',"
                 + "'" + aluno.getTelefone() + "',"
-                + "'" + aluno.getSobrenome() + "',"
+                + "'" + aluno.getCidadeOrigem()+ "',"
                 + "'" + aluno.getEmail() + "',"
                 + "'" + aluno.getCurso() + "',"
                 + "'" + aluno.getPeriodo() + "',"

@@ -8,12 +8,12 @@ package br.com.projeto_1.view;
  *
  * @author leonardo-teixeira
  */
-public class MotoristaVIEW extends javax.swing.JInternalFrame {
+public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form MotoristaVIEW
+     * Creates new form CadastroTransporte
      */
-    public MotoristaVIEW() {
+    public CadastroTransporteVIEW() {
         initComponents();
     }
 
