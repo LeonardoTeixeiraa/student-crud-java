@@ -51,52 +51,51 @@ public class FuncionarioDAO {
     }
 }
 
+public boolean alterarFuncionario(FuncionarioDTO funcionarioDTO) {
+    try {
+        ConexaoDAO.connectionDB();
+        stmt = ConexaoDAO.conn.createStatement();
 
+        String comando;
 
-    public boolean alterarFuncionario(FuncionarioDTO funcionarioDTO) {
-        try {
-            ConexaoDAO.connectionDB();
-            stmt = ConexaoDAO.conn.createStatement();
-
-            String comando;
-
-            if (funcionarioDTO.getSenha_fun().equals("")) {
-                comando = "UPDATE funcionario SET "
-                        + "nome_fun = '" + funcionarioDTO.getNome_fun() + "', "
-                        + "cpf_fun = '" + funcionarioDTO.getCpf_fun() + "', "
-                        + "login_fun = '" + funcionarioDTO.getLogin_fun() + "', "
-                        + "cargo_fun = '" + funcionarioDTO.getCargo_fun() + "', ";
-            } else {
-                comando = "UPDATE funcionario SET "
-                        + "nome_fun = '" + funcionarioDTO.getNome_fun() + "', "
-                        + "cpf_fun = '" + funcionarioDTO.getCpf_fun() + "', "
-                        + "login_fun = '" + funcionarioDTO.getLogin_fun() + "', "
-                        + "senha_fun = crypt('" + funcionarioDTO.getSenha_fun() + "', gen_salt('bf', 8)), "
-                        + "cargo_fun = '" + funcionarioDTO.getCargo_fun()+ "', ";
-            }
-
-            // CNH se for motorista
-            if (funcionarioDTO instanceof MotoristaDTO) {
-                comando += "cnh_fun = '" + ((MotoristaDTO) funcionarioDTO).getCnh() + "' ";
-            } else {
-                comando += "cnh_fun = NULL ";
-            }
-
-            comando += "WHERE id_fun = " + funcionarioDTO.getId_fun();
-
-            stmt.execute(comando);
-            ConexaoDAO.conn.commit();
-            stmt.close();
-
-            return true;
-
-        } catch (Exception e) {
-            System.out.println("Erro ao alterar funcionário: " + e.getMessage());
-            return false;
-        } finally {
-            ConexaoDAO.closeDB();
+        if (funcionarioDTO.getSenha_fun() == null || funcionarioDTO.getSenha_fun().isEmpty()) {
+            comando = "UPDATE funcionario SET "
+                    + "nome_fun = '" + funcionarioDTO.getNome_fun() + "', "
+                    + "cpf_fun = '" + funcionarioDTO.getCpf_fun() + "', "
+                    + "login_fun = '" + funcionarioDTO.getLogin_fun() + "', "
+                    + "cargo_fun = '" + funcionarioDTO.getCargo_fun() + "'";
+        } else {
+            comando = "UPDATE funcionario SET "
+                    + "nome_fun = '" + funcionarioDTO.getNome_fun() + "', "
+                    + "cpf_fun = '" + funcionarioDTO.getCpf_fun() + "', "
+                    + "login_fun = '" + funcionarioDTO.getLogin_fun() + "', "
+                    + "senha_fun = crypt('" + funcionarioDTO.getSenha_fun() + "', gen_salt('bf', 8)), "
+                    + "cargo_fun = '" + funcionarioDTO.getCargo_fun() + "'";
         }
+
+        comando += " WHERE id_fun = " + funcionarioDTO.getId_fun();
+        stmt.execute(comando);
+
+        // Atualiza CNH apenas se for motorista
+        if (funcionarioDTO instanceof MotoristaDTO) {
+            MotoristaDTO motoristaDTO = (MotoristaDTO) funcionarioDTO;
+            String comandoMotorista = "UPDATE motorista SET cnh= '" + motoristaDTO.getCnh() + "' "
+                                    + "WHERE id_fun= " + funcionarioDTO.getId_fun();
+            stmt.execute(comandoMotorista);
+        }
+
+        ConexaoDAO.conn.commit();
+        stmt.close();
+
+        return true;
+
+    } catch (Exception e) {
+        System.out.println("Erro ao alterar funcionário: " + e.getMessage());
+        return false;
+    } finally {
+        ConexaoDAO.closeDB();
     }
+}
 
     public boolean excluirFuncionario(FuncionarioDTO funcionarioDTO) {
         try {
