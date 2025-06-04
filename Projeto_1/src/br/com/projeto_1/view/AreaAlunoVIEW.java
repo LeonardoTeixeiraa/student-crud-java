@@ -4,6 +4,8 @@
  */
 package br.com.projeto_1.view;
 
+import br.com.projeto_1.dto.AlunoDTO;
+
 /**
  *
  * @author leonardo-teixeira
@@ -13,8 +15,28 @@ public class AreaAlunoVIEW extends javax.swing.JInternalFrame {
     /**
      * Creates new form AreaAlunoVIEW
      */
+    private AlunoDTO alunoDTO;
+
     public AreaAlunoVIEW() {
         initComponents();
+    }
+
+    public void setPosicao() {
+        if (this.getDesktopPane() != null) {
+            int x = (this.getDesktopPane().getWidth() - this.getWidth()) / 2;
+            int y = (this.getDesktopPane().getHeight() - this.getHeight()) / 2;
+            this.setLocation(x, y);
+        }
+    }
+
+    public AreaAlunoVIEW(AlunoDTO alunoDTO) {
+        initComponents(); // já gerado pelo NetBeans
+        setPosicao();
+        this.alunoDTO = alunoDTO;
+
+        // exemplo de uso
+        System.out.println("Aluno logado: " + alunoDTO.getNome());
+        // ou preencha labels/campos com dados do alunoDTO
     }
 
     /**
@@ -66,4 +88,5 @@ public class AreaAlunoVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+
 }

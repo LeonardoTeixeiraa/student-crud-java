@@ -16,15 +16,17 @@ import java.sql.Statement;
 public class AlunoDAO {
 
     protected Statement stmt;
+    private ResultSet rs = null;    
 
     public boolean inserirAluno(AlunoDTO aluno) {
         try {
             ConexaoDAO.connectionDB();
             stmt = ConexaoDAO.conn.createStatement();
-            String query = "INSERT INTO alunos (prontuario, nome, sobrenome, horarioIda, "
+            String query = "INSERT INTO alunos (prontuario, nome, senha, sobrenome, horarioIda, "
                     + "horarioVolta, telefone, cidadeOrigem, email, curso, periodo, cep, rg) VALUES ("
                     + "'" + aluno.getProntuario() + "',"
                     + "'" + aluno.getNome() + "',"
+                    +"'" + aluno.getSenha() + "',"
                     + "'" + aluno.getSobrenome() + "',"
                     + "'" + aluno.getHorarioIda() + "',"
                     + "'" + aluno.getHorarioVolta() + "',"
@@ -85,26 +87,25 @@ public class AlunoDAO {
             stmt = ConexaoDAO.conn.createStatement();
 
             String query = "UPDATE alunos SET "
-                + "nome = '" + aluno.getNome() + "', "
-                + "periodo = '" + aluno.getPeriodo() + "', "
-                + "curso = '" + aluno.getCurso() + "', "
-                + "sobrenome = '" + aluno.getSobrenome() + "', "
-                + "horarioIda = '" + aluno.getHorarioIda() + "', "
-                + "horarioVolta = '" + aluno.getHorarioVolta() + "', "
-                + "cidadeOrigem = '" + aluno.getCidadeOrigem() + "', "
-                + "rg = '" + aluno.getRg() + "', "
-                + "email = '" + aluno.getEmail() + "', "
-                + "telefone = '" + aluno.getTelefone() + "' "
-                + "WHERE prontuario = '" + aluno.getProntuario() + "'";
-
-            
+                    + "nome = '" + aluno.getNome() + "', "
+                    + "periodo = '" + aluno.getPeriodo() + "', "
+                    +"senha = " + aluno.getSenha() + "',"
+                    + "curso = '" + aluno.getCurso() + "', "
+                    + "sobrenome = '" + aluno.getSobrenome() + "', "
+                    + "horarioIda = '" + aluno.getHorarioIda() + "', "
+                    + "horarioVolta = '" + aluno.getHorarioVolta() + "', "
+                    + "cidadeOrigem = '" + aluno.getCidadeOrigem() + "', "
+                    + "rg = '" + aluno.getRg() + "', "
+                    + "email = '" + aluno.getEmail() + "', "
+                    + "telefone = '" + aluno.getTelefone() + "' "
+                    + "WHERE prontuario = '" + aluno.getProntuario() + "'";
 
             stmt.execute(query.toUpperCase());
             ConexaoDAO.conn.commit();
             stmt.close();
-            
+
             return true;
-            
+
         } catch (SQLException e) {
             System.out.println("Erro: " + e.getMessage());
             return false;
@@ -124,14 +125,32 @@ public class AlunoDAO {
             ConexaoDAO.conn.commit();
             stmt.close();
             return true;
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return false;
-        } 
-        finally {
-          
+        } finally {
+
             ConexaoDAO.closeDB();
         }
     }
+
+    public boolean loginAluno(AlunoDTO alunoDTO) {
+        try {
+            ConexaoDAO.connectionDB();
+            stmt = ConexaoDAO.conn.createStatement();
+
+            String query = "SELECT * FROM alunos WHERE prontuario = '" + alunoDTO.getProntuario()
+             + "' AND senha = '" + alunoDTO.getSenha() + "'";
+
+            rs = stmt.executeQuery(query);
+
+            return rs.next();   
+        } catch (Exception e) {
+            System.out.println("Erro ao logar aluno: " + e.getMessage());
+            return false;
+        } finally {
+            ConexaoDAO.closeDB();
+        }
+    }
+
 }

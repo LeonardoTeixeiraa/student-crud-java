@@ -7,12 +7,19 @@ package br.com.projeto_1.view;
 import br.com.projeto_1.dto.FuncionarioDTO;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 
 /**
  *
  * @author Leonardo
  */
 public class PrincipalVIEW extends javax.swing.JFrame {
+
+    public void adicionarInternalFrame(JInternalFrame frame) {
+    this.desktopPane.add(frame);
+    frame.setVisible(true);
+}
+    
 
     /**
      * Creates new form PrincipalVIEW
@@ -22,13 +29,21 @@ public class PrincipalVIEW extends javax.swing.JFrame {
     public PrincipalVIEW(FuncionarioDTO funcionarioDTO) {
         this.funcionarioDTO = funcionarioDTO; // armazena o usuário logado
         initComponents();
+
+        desktopPane = new javax.swing.JDesktopPane(); 
+        this.setContentPane(desktopPane);
+
         setExtendedState(JFrame.MAXIMIZED_BOTH); // inicia maximizado
         setLocationRelativeTo(null);
     }
 
-    public PrincipalVIEW( boolean abrirCadastroAluno) {
+    public PrincipalVIEW(boolean abrirCadastroAluno) {
         initComponents();
         this.setLocationRelativeTo(null);
+        desktopPane = new javax.swing.JDesktopPane();
+        this.setContentPane(desktopPane);
+        this.setExtendedState(MAXIMIZED_BOTH); // Tela cheia
+        this.setVisible(true);
 
         if (abrirCadastroAluno) {
             abreAluno();
@@ -54,14 +69,15 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         alunoVIEW.setVisible(true);
         alunoVIEW.setPosicao();
     }
-     public void abreFuncionario() {
+
+    public void abreFuncionario() {
         CadastroFuncionarioVIEW funcionarioVIEW = new CadastroFuncionarioVIEW();
         this.desktopPane.add(funcionarioVIEW);
         funcionarioVIEW.setVisible(true);
         funcionarioVIEW.setPosicao();
     }
-     
-     public void abreTransporte() {
+
+    public void abreTransporte() {
         CadastroTransporteVIEW transporteVIEW = new CadastroTransporteVIEW();
         this.desktopPane.add(transporteVIEW);
         transporteVIEW.setVisible(true);
@@ -177,12 +193,12 @@ public class PrincipalVIEW extends javax.swing.JFrame {
 
     private void ItemMenuFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemMenuFuncionarioActionPerformed
         // TODO add your handling code here:
-        if(funcionarioDTO.getCargo_fun().equals("SECRETARIO"))
-        this.abreFuncionario();
+        if (funcionarioDTO.getCargo_fun().equals("SECRETARIO"))
+            this.abreFuncionario();
     }//GEN-LAST:event_ItemMenuFuncionarioActionPerformed
 
     private void ItemMenuTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemMenuTransporteActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:    
         this.abreTransporte();
     }//GEN-LAST:event_ItemMenuTransporteActionPerformed
 

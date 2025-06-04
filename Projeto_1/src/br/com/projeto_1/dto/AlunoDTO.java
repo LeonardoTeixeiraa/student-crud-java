@@ -14,6 +14,15 @@ public class AlunoDTO {
     private String nome, sobrenome;
     private String horarioIda, horarioVolta, cidadeOrigem, cep;
     private String prontuario;
+    private String senha;
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     public String getCep() {
         return cep;

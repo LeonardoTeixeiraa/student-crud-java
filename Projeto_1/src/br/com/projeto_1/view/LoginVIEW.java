@@ -9,6 +9,8 @@ import br.com.projeto_1.dto.FuncionarioDTO;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import br.com.projeto_1.view.PrincipalVIEW;
+import br.com.projeto_1.ctr.AlunoCTR;
+import br.com.projeto_1.dto.AlunoDTO;
 
 /**
  *
@@ -18,6 +20,9 @@ public class LoginVIEW extends javax.swing.JFrame {
 
     FuncionarioCTR funcionarioCTR = new FuncionarioCTR();
     FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
+
+    AlunoDTO alunoDTO = new AlunoDTO();
+    AlunoCTR alunoCTR = new AlunoCTR();
 
     /**
      * Creates new form LoginVIEW
@@ -88,6 +93,8 @@ public class LoginVIEW extends javax.swing.JFrame {
         btnLogar = new javax.swing.JButton();
         msgErro = new javax.swing.JLabel();
         btnCadastroAlunos = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -125,6 +132,10 @@ public class LoginVIEW extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aluno", "Funcionario" }));
+
+        jLabel4.setText("Selecione:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,26 +143,35 @@ public class LoginVIEW extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(154, 154, 154)
-                        .addComponent(jLabel1))
+                        .addContainerGap()
+                        .addComponent(btnCadastroAlunos))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLogar)
-                                .addGap(21, 21, 21))
-                            .addComponent(login_fun)
-                            .addComponent(senha_fun)
-                            .addComponent(msgErro, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnCadastroAlunos)))
+                                .addComponent(jLabel4)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(88, 88, 88)
+                                        .addComponent(jLabel1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnCancelar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnLogar)
+                                        .addGap(21, 21, 21))
+                                    .addComponent(login_fun)
+                                    .addComponent(senha_fun)
+                                    .addComponent(msgErro, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -159,15 +179,19 @@ public class LoginVIEW extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(login_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(login_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(senha_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                    .addComponent(senha_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(msgErro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -184,8 +208,8 @@ public class LoginVIEW extends javax.swing.JFrame {
     private void btnCadastroAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroAlunosActionPerformed
         // TODO add your handling code here:
 
-    this.dispose(); // Fecha a tela de login
-    new PrincipalVIEW(true).setVisible(true); // Abre a tela principal e chama o cadastro de alunos
+        this.dispose(); // Fecha a tela de login
+        new PrincipalVIEW(true).setVisible(true); // Abre a tela principal e chama o cadastro de alunos
     }//GEN-LAST:event_btnCadastroAlunosActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelarActionPerformed
@@ -193,29 +217,50 @@ public class LoginVIEW extends javax.swing.JFrame {
     }// GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLogarActionPerformed
-        if (login_fun.getText().length() <= 0) {
-            login_fun.setRequestFocusEnabled(true);
-        }
-
-        if (new String(senha_fun.getPassword()).length() <= 0) {
-            senha_fun.setRequestFocusEnabled(true);
-        }
-
-        funcionarioDTO.setLogin_fun(login_fun.getText());
-        funcionarioDTO.setSenha_fun(new String(senha_fun.getPassword()));
-
-        String tipo = funcionarioCTR.logarFuncionario(funcionarioDTO);
-
-        if (tipo == null) {
-            msgErro.setText("Dados incorretos, verifique e tente novamente!");
+        if (!verificaPreenchimento()) {
             return;
         }
 
-        if (tipo.equals("SECRETARIO") || tipo.equals("FUNCIONARIO")) {
-            funcionarioDTO.setCargo_fun(tipo);
-            msgErro.setText("Funcionario logado com sucesso!");
-            this.dispose();
-            new PrincipalVIEW(funcionarioDTO).setVisible(true);
+        String tipoSelecionado = jComboBox1.getSelectedItem().toString();
+
+        if (tipoSelecionado.equals("Funcionario")) {
+            funcionarioDTO.setLogin_fun(login_fun.getText());
+            funcionarioDTO.setSenha_fun(new String(senha_fun.getPassword()));
+
+            String tipo = funcionarioCTR.logarFuncionario(funcionarioDTO);
+
+            if (tipo == null) {
+                msgErro.setText("Login ou senha incorretos!");
+                limpaCampos();
+            } else {
+                funcionarioDTO.setCargo_fun(tipo);
+                this.dispose();
+                new PrincipalVIEW(funcionarioDTO).setVisible(true);
+            }
+
+        } else if (tipoSelecionado.equals("Aluno")) {
+            alunoDTO.setProntuario(login_fun.getText());
+            alunoDTO.setSenha(new String(senha_fun.getPassword()));
+
+            //debug para verificar as credenciais
+            System.out.println("Tipo selecionado: " + tipoSelecionado);
+            System.out.println("Prontuário: " + alunoDTO.getProntuario());
+            System.out.println("Senha: " + alunoDTO.getSenha());
+
+            boolean logado = alunoCTR.logarAluno(alunoDTO);
+
+            if (!logado) {
+                msgErro.setText("Prontuário ou senha incorretos!");
+                limpaCampos();
+            } else {
+                this.dispose();
+                PrincipalVIEW principal = new PrincipalVIEW(false);
+                AreaAlunoVIEW areaAluno = new AreaAlunoVIEW(alunoDTO);
+                principal.setVisible(true);
+                principal.adicionarInternalFrame(areaAluno);
+                areaAluno.setPosicao();
+            }
+
         }
 
     }// GEN-LAST:event_btnLogarActionPerformed
@@ -272,9 +317,11 @@ public class LoginVIEW extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastroAlunos;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnLogar;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField login_fun;
     private javax.swing.JLabel msgErro;
     private javax.swing.JPasswordField senha_fun;
