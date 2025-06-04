@@ -10,40 +10,48 @@ public class FuncionarioDAO {
     private ResultSet rs = null;
     private Statement stmt = null;
 
-    public boolean inserirFuncionario(FuncionarioDTO funcionarioDTO) {
-        try {
-            ConexaoDAO.connectionDB();
-            stmt = ConexaoDAO.conn.createStatement();
+   public boolean inserirFuncionario(FuncionarioDTO funcionarioDTO) {
+    try {
+        ConexaoDAO.connectionDB();
+        stmt = ConexaoDAO.conn.createStatement();
 
-            String comando = "INSERT INTO funcionario (nome_fun, cpf_fun, login_fun, senha_fun, cargo_fun, cnh_fun) VALUES ("
-                    + "'" + funcionarioDTO.getNome_fun() + "', "
-                    + "'" + funcionarioDTO.getCpf_fun() + "', "
-                    + "'" + funcionarioDTO.getLogin_fun() + "', "
-                    + "crypt('" + funcionarioDTO.getSenha_fun() + "', gen_salt('bf', 8)), "
-                    + "'" + funcionarioDTO.getCargo_fun() + "', ";
+        // 1. Inserir na tabela funcionario
+        String comandoFuncionario = "INSERT INTO funcionario (nome_fun, cpf_fun, login_fun, senha_fun, cargo_fun) VALUES ("
+                + "'" + funcionarioDTO.getNome_fun() + "', "
+                + "'" + funcionarioDTO.getCpf_fun() + "', "
+                + "'" + funcionarioDTO.getLogin_fun() + "', "
+                + "crypt('" + funcionarioDTO.getSenha_fun() + "', gen_salt('bf', 8)), "
+                + "'" + funcionarioDTO.getCargo_fun() + "') RETURNING id_fun";
 
-            // Verifica se é um motorista
-            if (funcionarioDTO instanceof MotoristaDTO) {
-                comando += "'" + ((MotoristaDTO) funcionarioDTO).getCnh() + "'";
-            } else {
-                comando += "NULL";
-            }
-
-            comando += ")";
-
-            stmt.execute(comando);
-            ConexaoDAO.conn.commit();
-            stmt.close();
-
-            return true;
-
-        } catch (Exception e) {
-            System.out.println("Erro ao inserir funcionário: " + e.getMessage());
-            return false;
-        } finally {
-            ConexaoDAO.closeDB();
+        // Executa e obtém o id do funcionário inserido
+        ResultSet rs = stmt.executeQuery(comandoFuncionario);
+        int idFuncionario = -1;
+        if (rs.next()) {
+            idFuncionario = rs.getInt("id_fun");
         }
+
+        // 2. Se o DTO for um motorista, insere na tabela motorista
+        if (funcionarioDTO instanceof MotoristaDTO ) {
+            MotoristaDTO motoristaDTO = (MotoristaDTO) funcionarioDTO;
+            String comandoMotorista = "INSERT INTO motorista (id_fun, cnh_fun) VALUES ("
+                    + idFuncionario + ", "
+                    + "'" + motoristaDTO.getCnh()+ "')";
+            stmt.execute(comandoMotorista);
+        }
+
+        ConexaoDAO.conn.commit();
+        stmt.close();
+        return true;
+
+    } catch (Exception e) {
+        System.out.println("Erro ao inserir funcionário: " + e.getMessage());
+        return false;
+    } finally {
+        ConexaoDAO.closeDB();
     }
+}
+
+
 
     public boolean alterarFuncionario(FuncionarioDTO funcionarioDTO) {
         try {

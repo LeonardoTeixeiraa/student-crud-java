@@ -6,6 +6,8 @@ package br.com.projeto_1.view;
 
 import br.com.projeto_1.ctr.AlunoCTR;
 import br.com.projeto_1.dto.AlunoDTO;
+import br.com.projeto_1.dto.FuncionarioDTO;
+import br.com.projeto_1.ctr.FuncionarioCTR;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
@@ -640,6 +642,7 @@ public class CadastroAlunoVIEW extends javax.swing.JInternalFrame {
 
     private void pesquisa_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisa_nomeActionPerformed
         // TODO add your handling code here:
+         
     }//GEN-LAST:event_pesquisa_nomeActionPerformed
 
 

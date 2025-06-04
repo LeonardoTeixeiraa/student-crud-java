@@ -54,6 +54,19 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         alunoVIEW.setVisible(true);
         alunoVIEW.setPosicao();
     }
+     public void abreFuncionario() {
+        CadastroFuncionarioVIEW funcionarioVIEW = new CadastroFuncionarioVIEW();
+        this.desktopPane.add(funcionarioVIEW);
+        funcionarioVIEW.setVisible(true);
+        funcionarioVIEW.setPosicao();
+    }
+     
+     public void abreTransporte() {
+        CadastroTransporteVIEW transporteVIEW = new CadastroTransporteVIEW();
+        this.desktopPane.add(transporteVIEW);
+        transporteVIEW.setVisible(true);
+        transporteVIEW.setPosicao();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,6 +82,8 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         itemMenuCliente = new javax.swing.JMenuItem();
+        ItemMenuTransporte = new javax.swing.JMenuItem();
+        ItemMenuFuncionario = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -91,6 +106,22 @@ public class PrincipalVIEW extends javax.swing.JFrame {
             }
         });
         menuCadastro.add(itemMenuCliente);
+
+        ItemMenuTransporte.setText("Transporte");
+        ItemMenuTransporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemMenuTransporteActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(ItemMenuTransporte);
+
+        ItemMenuFuncionario.setText("Funcionario");
+        ItemMenuFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ItemMenuFuncionarioActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(ItemMenuFuncionario);
 
         menuBar.add(menuCadastro);
 
@@ -144,11 +175,24 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         this.abreAluno();
     }//GEN-LAST:event_itemMenuClienteActionPerformed
 
+    private void ItemMenuFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemMenuFuncionarioActionPerformed
+        // TODO add your handling code here:
+        if(funcionarioDTO.getCargo_fun().equals("SECRETARIO"))
+        this.abreFuncionario();
+    }//GEN-LAST:event_ItemMenuFuncionarioActionPerformed
+
+    private void ItemMenuTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ItemMenuTransporteActionPerformed
+        // TODO add your handling code here:
+        this.abreTransporte();
+    }//GEN-LAST:event_ItemMenuTransporteActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ItemMenuFuncionario;
+    private javax.swing.JMenuItem ItemMenuTransporte;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuItem itemMenuCliente;
     private javax.swing.JMenuItem jMenuItem1;
