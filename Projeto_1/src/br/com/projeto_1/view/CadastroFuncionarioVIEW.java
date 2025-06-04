@@ -123,7 +123,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
         jtl_consultar_fun = new javax.swing.JTable();
         checkAlterarSenha = new javax.swing.JCheckBox();
         senha_fun = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
+        cnh_fun = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -148,7 +148,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
 
         jLabel9.setText("Tipo:");
 
-        cargo_fun.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Secretário(Admin)", "Motorista" }));
+        cargo_fun.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Motorista", "Secretário(Admin)" }));
         cargo_fun.setNextFocusableComponent(senha_fun);
         cargo_fun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +287,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
                             .addComponent(cpf_fun)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cnh_fun, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(senha_fun, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cargo_fun, javax.swing.GroupLayout.Alignment.LEADING, 0, 275, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -353,7 +353,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
                             .addComponent(senha_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cnh_fun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -385,6 +385,14 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
 
     private void cargo_funActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargo_funActionPerformed
         // TODO add your handling code here:
+        if (cargo_fun.getSelectedItem().toString().equalsIgnoreCase("Motorista")) {
+        cnh_fun.setEnabled(true);
+        cnh_fun.setVisible(true);
+    } else {
+        cnh_fun.setText("");
+        cnh_fun.setEnabled(false);
+        cnh_fun.setVisible(false);
+    }
     }//GEN-LAST:event_cargo_funActionPerformed
 
     private void nome_funActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nome_funActionPerformed
@@ -530,6 +538,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cargo_fun;
     private javax.swing.JCheckBox checkAlterarSenha;
+    private javax.swing.JTextField cnh_fun;
     private javax.swing.JTextField cpf_fun;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -541,7 +550,6 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable jtl_consultar_fun;
     private javax.swing.JTextField login_fun;
     private javax.swing.JTextField nome_fun;

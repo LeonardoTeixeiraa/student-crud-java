@@ -5,6 +5,11 @@
 package br.com.projeto_1.view;
 
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
+import br.com.projeto_1.dto.TransporteDTO;
+import br.com.projeto_1.ctr.TransporteCTR;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,14 +20,134 @@ public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
     /**
      * Creates new form CadastroTransporte
      */
+    TransporteCTR transporteCTR = new TransporteCTR();
+    TransporteDTO transporteDTO = new TransporteDTO();
+
+    int gravar_alterar; // Variável usada para saber se esta alterando ou incluindo.
+    ResultSet rs; // Variável usada para preenchimento da tabela e dos campos
+    DefaultTableModel modelo_jtl_consultar_transporte; // Variável para guardar o modelo da tabela
+
     public CadastroTransporteVIEW() {
         initComponents();
+
+        // Chama todos os métodos liberaCampos
+        liberaCampos(false);
+        // Chama todos os métodos limpaCampos
+        liberaBotoes(true, false, false, false, true);
+        modelo_jtl_consultar_transporte = (DefaultTableModel) jtl_consultar_transp.getModel();
+
     }
-    
+
     public void setPosicao() {
         Dimension d = this.getDesktopPane().getSize();
 
         this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
+
+    private void liberaCampos(boolean a) {
+        TipoVeiculo.setEnabled(a);
+        Placa.setEnabled(a);
+        Capacidade.setEnabled(a);
+        HorarioSaida.setEnabled(a);
+    }
+
+    private void limpaCampos() {
+        TipoVeiculo.setText("");
+        Placa.setText("");
+        HorarioSaida.setText("");
+        Capacidade.setText("");
+    }
+
+    private void liberaBotoes(boolean a, boolean b, boolean c, boolean d, boolean e) {
+        btnNovo.setEnabled(a);
+        btnSalvar.setEnabled(b);
+        btnCancelar.setEnabled(c);
+        btnExcluir.setEnabled(d);
+        btnSair.setEnabled(e);
+    }
+
+    public void gravar() {
+        try {
+            transporteDTO.setTipo_transp(TipoVeiculo.getText());
+            transporteDTO.setPlaca_transp(Placa.getText());
+            String capacidadeTexto = Capacidade.getText();
+            if (capacidadeTexto == null || capacidadeTexto.trim().isEmpty()) {
+                transporteDTO.setCapacidade(0); // ou algum valor padrão, ou lançar uma exceção customizada
+            } else {
+                transporteDTO.setCapacidade(Integer.parseInt(capacidadeTexto));
+            }
+
+            transporteDTO.setHorario_saida(HorarioSaida.getText());
+
+            JOptionPane.showMessageDialog(null,
+                    transporteCTR.inserirTransporte(transporteDTO));
+        } catch (Exception e) {
+            System.out.println("Erro ao Gravar" + e.getMessage());
+        }
+    }// Fecha o método gravar
+
+    private void preencheTabela(String placa_transp) {
+        try {
+            modelo_jtl_consultar_transporte.setNumRows(0);
+            transporteDTO.setPlaca_transp(placa_transp);
+            rs = transporteCTR.consultarTransporte(transporteDTO, 1); // 1 = pesquisa por tipo
+            while (rs.next()) {
+                modelo_jtl_consultar_transporte.addRow(new Object[]{
+                    rs.getString("placa_transp"),
+                    rs.getString("tipo_transp")
+                });
+            }
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
+        } finally {
+            transporteCTR.CloseDB();
+        }
+    }
+
+    private void preencheCampos(String Placa) {
+        try {
+            transporteDTO.setPlaca_transp(Placa);
+            rs = transporteCTR.consultarTransporte(transporteDTO, 2); // 2 = pesquisa pela placa
+            if (rs.next()) {
+                limpaCampos();
+                TipoVeiculo.setText(rs.getString("tipo_transp"));
+                this.Placa.setText(rs.getString("placa_transp"));
+                HorarioSaida.setText(rs.getString("horario_saida"));
+                Capacidade.setText(rs.getString("capacidade"));
+                liberaCampos(true);
+            }
+        } catch (Exception erTab) {
+            System.out.println("Erro SQL: " + erTab);
+        } finally {
+            transporteCTR.CloseDB();
+        }
+    }
+
+    private void alterar() {
+        try {
+            transporteDTO.setTipo_transp(TipoVeiculo.getText());
+            transporteDTO.setPlaca_transp(Placa.getText());
+            transporteDTO.setHorario_saida(HorarioSaida.getText());
+            String capacidadeTexto = Capacidade.getText();
+            if (capacidadeTexto == null || capacidadeTexto.trim().isEmpty()) {
+                transporteDTO.setCapacidade(0);
+            } else {
+                transporteDTO.setCapacidade(Integer.parseInt(capacidadeTexto));
+            }
+
+            JOptionPane.showMessageDialog(null,
+                    transporteCTR.alterarTransporte(transporteDTO));
+        } catch (Exception e) {
+            System.out.println("Erro ao Alterar Transporte: " + e.getMessage());
+        }
+    }
+
+    private void excluir() {
+        if (JOptionPane.showConfirmDialog(null, "Deseja realmente excluir o Transporte?", "Aviso",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            JOptionPane.showMessageDialog(null,
+                    transporteCTR.excluirTransporte(transporteDTO));
+        }
     }
 
     /**
@@ -46,8 +171,8 @@ public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField5 = new javax.swing.JTextField();
+        jtl_consultar_transp = new javax.swing.JTable();
+        pesquisa_nome_transp = new javax.swing.JTextField();
         btnPesquisarTransporte = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
@@ -59,6 +184,12 @@ public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
         jLabel2.setText("Cadastro de Transportes");
 
         jLabel1.setText("Tipo do Veículo:");
+
+        TipoVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TipoVeiculoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Placa:");
 
@@ -77,7 +208,7 @@ public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Placa:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtl_consultar_transp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -88,9 +219,19 @@ public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
                 "ID", "Tipo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jtl_consultar_transp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtl_consultar_transpMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtl_consultar_transp);
 
         btnPesquisarTransporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/3844432_magnifier_search_zoom_icon(2).png"))); // NOI18N
+        btnPesquisarTransporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarTransporteActionPerformed(evt);
+            }
+        });
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/1564491_add_create_new_plus_icon(1).png"))); // NOI18N
         btnNovo.setText("Novo");
@@ -103,16 +244,36 @@ public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
         btnSalvar.setBackground(new java.awt.Color(0, 153, 0));
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/2639912_save_icon(1).png"))); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/9004772_cross_delete_cancel_remove_icon.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setBackground(new java.awt.Color(255, 0, 0));
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/8664938_trash_can_delete_remove_icon.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/9104334_sign out_logout_exit_out_icon(1).png"))); // NOI18N
         btnSair.setText("Sair");
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,13 +309,14 @@ public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Placa, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(HorarioSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Capacidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(Capacidade, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(HorarioSaida, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                            .addComponent(pesquisa_nome_transp, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisarTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))
@@ -197,7 +359,7 @@ public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
                                 .addGap(5, 5, 5)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(pesquisa_nome_transp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btnPesquisarTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -220,10 +382,76 @@ public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-//        liberaCampos(true);
-//        liberaBotoes(false, true, true, false, false);
-//        this.SALVANDO = 1;
+        liberaCampos(true);
+        liberaBotoes(false, true, true, false, true);
+        gravar_alterar = 1;
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void TipoVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoVeiculoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TipoVeiculoActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        // TODO add your handling code here:
+        if (gravar_alterar == 1) {
+            gravar();
+            gravar_alterar = 0;
+        } else {
+            if (gravar_alterar == 2) {
+                alterar();
+                gravar_alterar = 0;
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro no Sistema!!!");
+            }
+        }
+
+        limpaCampos();
+        liberaCampos(false);
+        liberaBotoes(true, false, false, false, true);
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnPesquisarTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarTransporteActionPerformed
+        // TODO add your handling code here:
+        preencheTabela(pesquisa_nome_transp.getText());
+    }//GEN-LAST:event_btnPesquisarTransporteActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        excluir();
+        limpaCampos();
+        liberaCampos(false);
+        liberaBotoes(true, false, false, false, true);
+        modelo_jtl_consultar_transporte.setNumRows(0);
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        // TODO add your handling code here:
+        this.dispose(); // Fecha a janela interna
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        limpaCampos();
+        liberaCampos(false);
+        modelo_jtl_consultar_transporte.setNumRows(0);
+        liberaBotoes(true, false, false, false, true);
+        gravar_alterar = 0;
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void jtl_consultar_transpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtl_consultar_transpMouseClicked
+        // TODO add your handling code here:
+        String placaSelecionada = String.valueOf(
+                jtl_consultar_transp.getValueAt(
+                        jtl_consultar_transp.getSelectedRow(), 0));
+
+        preencheCampos(placaSelecionada);
+
+        liberaBotoes(false, true, true, true, true);
+
+        liberaCampos(true);
+
+        gravar_alterar = 2;
+    }//GEN-LAST:event_jtl_consultar_transpMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -245,7 +473,7 @@ public class CadastroTransporteVIEW extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable jtl_consultar_transp;
+    private javax.swing.JTextField pesquisa_nome_transp;
     // End of variables declaration//GEN-END:variables
 }

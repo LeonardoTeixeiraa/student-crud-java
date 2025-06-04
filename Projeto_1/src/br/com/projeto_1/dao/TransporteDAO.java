@@ -21,12 +21,10 @@ public class TransporteDAO {
             ConexaoDAO.connectionDB();
             stmt = ConexaoDAO.conn.createStatement();
 
-            String comando = "INSERT INTO transporte (placa_transp, tipo_transp, ponto_embarque, horario_saida, id_motorista, capacidade) VALUES ("
+            String comando = "INSERT INTO transporte (placa_transp, tipo_transp, horario_saida, capacidade) VALUES ("
                     + "'" + transporteDTO.getPlaca_transp() + "', "
                     + "'" + transporteDTO.getTipo_transp() + "', "
-                    + "'" + transporteDTO.getPonto_embarque() + "', "
                     + "'" + transporteDTO.getHorario_saida() + "', "
-                    + "'" + transporteDTO.getId_motorista() + "', "
                     + transporteDTO.getCapacidade() + ")";
 
             stmt.execute(comando);
@@ -51,9 +49,7 @@ public class TransporteDAO {
             String comando = "UPDATE transporte SET "
                     + "placa_transp = '" + transporteDTO.getPlaca_transp() + "', "
                     + "tipo_transp = '" + transporteDTO.getTipo_transp() + "', "
-                    + "ponto_embarque = '" + transporteDTO.getPonto_embarque() + "', "
                     + "horario_saida = '" + transporteDTO.getHorario_saida() + "', "
-                    + "id_motorista = '" + transporteDTO.getId_motorista() + "', "
                     + "capacidade = " + transporteDTO.getCapacidade() + " "
                     + "WHERE placa_transp = '" + transporteDTO.getPlaca_transp() + "'";
 

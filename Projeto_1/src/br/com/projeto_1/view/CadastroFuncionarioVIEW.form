@@ -65,7 +65,7 @@
                           <Component id="cpf_fun" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cnh_fun" alignment="0" max="32767" attributes="0"/>
                                   <Component id="senha_fun" alignment="0" max="32767" attributes="0"/>
                                   <Component id="cargo_fun" alignment="0" pref="275" max="32767" attributes="0"/>
                               </Group>
@@ -148,7 +148,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cnh_fun" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
@@ -229,8 +229,8 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
-            <StringItem index="0" value="Secret&#xe1;rio(Admin)"/>
-            <StringItem index="1" value="Motorista"/>
+            <StringItem index="0" value="Motorista"/>
+            <StringItem index="1" value="Secret&#xe1;rio(Admin)"/>
           </StringArray>
         </Property>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
@@ -381,7 +381,7 @@
     </Component>
     <Component class="javax.swing.JPasswordField" name="senha_fun">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="cnh_fun">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>

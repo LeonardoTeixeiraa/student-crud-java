@@ -6,8 +6,6 @@ package br.com.projeto_1.view;
 
 import br.com.projeto_1.ctr.AlunoCTR;
 import br.com.projeto_1.dto.AlunoDTO;
-import br.com.projeto_1.dto.FuncionarioDTO;
-import br.com.projeto_1.ctr.FuncionarioCTR;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
@@ -25,6 +23,7 @@ public class CadastroAlunoVIEW extends javax.swing.JInternalFrame {
 
     int SALVANDO = 0;
     ResultSet rs;
+    int gravar_alterar;
     DefaultTableModel modelo_jtl_consultar_aluno;
 
     /**
@@ -62,42 +61,56 @@ public class CadastroAlunoVIEW extends javax.swing.JInternalFrame {
         }
     }
 
- private void preencheCampos(int id_aluno) {
-    try {
-        rs = alunoCTR.consultarAluno(aluno, 2);
-        if (rs.next()) {
-            nome.setText(rs.getString("nome"));
-            prontuario.setText(rs.getString("prontuario"));
-            cidadeOrigem.setText(rs.getString("cidadeOrigem"));
-            rg.setText(rs.getString("rg"));
-            telefone.setText(rs.getString("telefone"));
-            email.setText(rs.getString("email"));
-            horarioIda.setText(rs.getString("horarioIda"));
-            horarioVolta.setText(rs.getString("horarioVolta"));
-            curso.setText(rs.getString("curso"));
-            periodo.setText(rs.getString("periodo"));
-            cep.setText(rs.getString("cep"));
-            System.out.println("ID do aluno selecionado: " + prontuario);
-        }
-    } catch (SQLException e) {
-        System.out.println("Erro SQL: " + e);
-    } finally {
+    private void preencheCampos(String prontuario) {
         try {
-            if (rs != null) rs.close();
+            aluno.setProntuario(prontuario);
+            rs = alunoCTR.consultarAluno(aluno, 2); // Busca pelo prontuário
+
+            if (rs.next()) {
+                nome.setText(rs.getString("nome"));
+                sobrenome.setText(rs.getString("sobrenome"));
+                this.prontuario.setText(rs.getString("prontuario"));
+                cidadeOrigem.setText(rs.getString("cidadeOrigem"));
+                rg.setText(rs.getString("rg"));
+                telefone.setText(rs.getString("telefone"));
+                email.setText(rs.getString("email"));
+                horarioIda.setText(rs.getString("horarioIda"));
+                horarioVolta.setText(rs.getString("horarioVolta"));
+                curso.setText(rs.getString("curso"));
+                periodo.setText(rs.getString("periodo"));
+                cep.setText(rs.getString("cep"));
+
+                System.out.println("Prontuário do aluno selecionado: " + prontuario);
+            }
+
         } catch (SQLException e) {
-            System.out.println("Erro ao fechar ResultSet: " + e);
+            System.out.println("Erro SQL: " + e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar ResultSet: " + e);
+            }
+            alunoCTR.closeDB();
         }
-        alunoCTR.closeDB();
     }
-}
 
     private void liberaCampos(boolean visibility) {
         nome.setEnabled(visibility);
-
         cidadeOrigem.setEnabled(visibility);
-
         rg.setEnabled(visibility);
-
+        sobrenome.setEnabled(visibility);
+        telefone.setEnabled(visibility);
+        email.setEnabled(visibility);
+        cidadeOrigem.setEnabled(visibility);
+        cep.setEnabled(visibility);
+        prontuario.setEnabled(visibility);
+        curso.setEnabled(visibility);
+        periodo.setEnabled(visibility);
+        horarioIda.setEnabled(visibility);
+        horarioVolta.setEnabled(visibility);
     }
 
     public void limpaCampos() {
@@ -145,56 +158,58 @@ public class CadastroAlunoVIEW extends javax.swing.JInternalFrame {
         }
     }
 
-   public void atualizar() {
-    try {
-        aluno.setNome(nome.getText());
-        aluno.setSobrenome(sobrenome.getText());  
-        aluno.setCidadeOrigem(cidadeOrigem.getText());
-        aluno.setProntuario(prontuario.getText());  
-        aluno.setCep(cep.getText());
-        aluno.setTelefone(telefone.getText());
-        aluno.setRg(rg.getText());
-        aluno.setEmail(email.getText());  
-        aluno.setHorarioIda(horarioIda.getText()); 
-        aluno.setHorarioVolta(horarioVolta.getText());  
-        aluno.setCurso(curso.getText());  
-        aluno.setPeriodo(periodo.getText());  
-
-        JOptionPane.showMessageDialog(null, alunoCTR.atualizarAluno(aluno));
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Erro: O prontuário deve ser um número válido.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
-    } catch (Exception e) {
-        e.printStackTrace();  
-        JOptionPane.showMessageDialog(null, "Erro ao atualizar aluno: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-    }
-}
-
-   private void excluir() {
-    if (JOptionPane.showConfirmDialog(null, "Deseja excluir o Aluno?",
-            "Aviso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+    public void atualizar() {
         try {
-            // Obter o prontuário do aluno selecionado na tabela
-            aluno.setProntuario((
-                    String.valueOf(jtl_consultar_aluno.getValueAt(
-                            jtl_consultar_aluno.getSelectedRow(), 0))));
-            
-            // Chamar o método para excluir e mostrar a mensagem retornada
-            String mensagem = alunoCTR.excluir(aluno);
-            JOptionPane.showMessageDialog(null, mensagem);
-            
-            // Limpar campos e tabela
-            limpaCampos();
-            modelo_jtl_consultar_aluno.setNumRows(0);
-            
-            // Recarregar a tabela após a exclusão
-            preencheTabela("");
-            
+            aluno.setNome(nome.getText());
+            aluno.setSobrenome(sobrenome.getText());
+            aluno.setCidadeOrigem(cidadeOrigem.getText());
+            aluno.setProntuario(prontuario.getText());
+            aluno.setCep(cep.getText());
+            aluno.setTelefone(telefone.getText());
+            aluno.setRg(rg.getText());
+            aluno.setEmail(email.getText());
+            aluno.setHorarioIda(horarioIda.getText());
+            aluno.setHorarioVolta(horarioVolta.getText());
+            aluno.setCurso(curso.getText());
+            aluno.setPeriodo(periodo.getText());
+
+            JOptionPane.showMessageDialog(null, alunoCTR.atualizarAluno(aluno));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Erro: O prontuário deve ser um número válido.", "Erro de Formato", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            System.out.println("Erro ao excluir: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + e.getMessage());
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar aluno: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-}
+
+    private void excluir() {
+        if (JOptionPane.showConfirmDialog(null, "Deseja excluir o Aluno?",
+                "Aviso", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            try {
+                // Obter o prontuário do aluno selecionado na tabela
+                aluno.setProntuario((String) jtl_consultar_aluno.getValueAt(
+                        jtl_consultar_aluno.getSelectedRow(), 0));
+
+                System.out.println("Prontuário para exclusão: " + aluno.getProntuario());
+
+                // Chamar o método para excluir e mostrar a mensagem retornada
+                String mensagem = alunoCTR.excluir(aluno);
+                JOptionPane.showMessageDialog(null, mensagem);
+
+                // Limpar campos e tabela
+                limpaCampos();
+                modelo_jtl_consultar_aluno.setNumRows(0);
+
+                // Recarregar a tabela após a exclusão
+                preencheTabela("");
+
+            } catch (Exception e) {
+                System.out.println("Erro ao excluir: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Erro ao excluir: " + e.getMessage());
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -353,6 +368,11 @@ public class CadastroAlunoVIEW extends javax.swing.JInternalFrame {
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/3844432_magnifier_search_zoom_icon(2).png"))); // NOI18N
         btnPesquisar.setText("OK");
+        btnPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPesquisarMouseClicked(evt);
+            }
+        });
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarActionPerformed(evt);
@@ -589,22 +609,21 @@ public class CadastroAlunoVIEW extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        this.preencheTabela(pesquisa_nome.getText().toUpperCase());   
+        this.preencheTabela(pesquisa_nome.getText().toUpperCase());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void jtl_consultar_alunoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtl_consultar_alunoMouseClicked
-            String prontuario = String.valueOf(
-            jtl_consultar_aluno.getValueAt(
+        try {
+            String pront = String.valueOf(jtl_consultar_aluno.getValueAt(
                     jtl_consultar_aluno.getSelectedRow(), 0));
-        
-         try {
-        int id = Integer.parseInt(prontuario);
-        preencheCampos(id);
-    } catch (NumberFormatException e) {
-        System.out.println("Erro ao converter ID: " + prontuario);
-    }
-
-        liberaBotoes(false, true, true, true, true);
+            preencheCampos(pront);
+            aluno.setProntuario(pront);
+            SALVANDO = 2;
+            liberaCampos(true);
+            liberaBotoes(false, true, true, true, true);
+        } catch (Exception e) {
+            System.out.println("Erro ao clicar na tabela: " + e.getMessage());
+        }
     }//GEN-LAST:event_jtl_consultar_alunoMouseClicked
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -642,8 +661,12 @@ public class CadastroAlunoVIEW extends javax.swing.JInternalFrame {
 
     private void pesquisa_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisa_nomeActionPerformed
         // TODO add your handling code here:
-         
+
     }//GEN-LAST:event_pesquisa_nomeActionPerformed
+
+    private void btnPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPesquisarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPesquisarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
