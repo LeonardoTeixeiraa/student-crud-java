@@ -89,7 +89,7 @@ public class AlunoDAO {
             String query = "UPDATE alunos SET "
                     + "nome = '" + aluno.getNome() + "', "
                     + "periodo = '" + aluno.getPeriodo() + "', "
-                    +"senha = " + aluno.getSenha() + "',"
+                    +"senha = '" + aluno.getSenha() + "',"
                     + "curso = '" + aluno.getCurso() + "', "
                     + "sobrenome = '" + aluno.getSobrenome() + "', "
                     + "horarioIda = '" + aluno.getHorarioIda() + "', "
@@ -97,7 +97,7 @@ public class AlunoDAO {
                     + "cidadeOrigem = '" + aluno.getCidadeOrigem() + "', "
                     + "rg = '" + aluno.getRg() + "', "
                     + "email = '" + aluno.getEmail() + "', "
-                    + "telefone = '" + aluno.getTelefone() + "' "
+                    + "telefone = '" + aluno.getTelefone() + "'"
                     + "WHERE prontuario = '" + aluno.getProntuario() + "'";
 
             stmt.execute(query.toUpperCase());

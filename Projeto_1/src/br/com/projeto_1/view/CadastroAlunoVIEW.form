@@ -170,7 +170,7 @@
                       <Component id="jScrollPane1" min="-2" pref="146" max="-2" attributes="0"/>
                       <EmptySpace pref="39" max="32767" attributes="0"/>
                       <Component id="btnPesquisar" min="-2" pref="22" max="-2" attributes="0"/>
-                      <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <EmptySpace pref="39" max="32767" attributes="0"/>
                       <Component id="btnSair" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
@@ -335,7 +335,7 @@
     <Component class="javax.swing.JButton" name="btnNovo">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icones/1564491_add_create_new_plus_icon(1).png"/>
+          <Image iconType="3" name="/br/com/projeto_1/view/icones/1564491_add_create_new_plus_icon(1).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Novo"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -352,7 +352,7 @@
           <Color blue="0" green="99" red="0" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icones/2639912_save_icon(1).png"/>
+          <Image iconType="3" name="/br/com/projeto_1/view/icones/2639912_save_icon(1).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Salvar"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -369,7 +369,7 @@
           <Color blue="0" green="0" red="ff" type="rgb"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icones/8664938_trash_can_delete_remove_icon.png"/>
+          <Image iconType="3" name="/br/com/projeto_1/view/icones/8664938_trash_can_delete_remove_icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Excluir"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -383,7 +383,7 @@
     <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icones/9004772_cross_delete_cancel_remove_icon.png"/>
+          <Image iconType="3" name="/br/com/projeto_1/view/icones/9004772_cross_delete_cancel_remove_icon.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -397,7 +397,7 @@
     <Component class="javax.swing.JButton" name="btnSair">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icones/9104334_sign out_logout_exit_out_icon(1).png"/>
+          <Image iconType="3" name="/br/com/projeto_1/view/icones/9104334_sign out_logout_exit_out_icon(1).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Sair"/>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
@@ -460,7 +460,7 @@
     <Component class="javax.swing.JButton" name="btnPesquisar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/icones/3844432_magnifier_search_zoom_icon(2).png"/>
+          <Image iconType="3" name="/br/com/projeto_1/view/icones/3844432_magnifier_search_zoom_icon(2).png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="OK"/>
       </Properties>

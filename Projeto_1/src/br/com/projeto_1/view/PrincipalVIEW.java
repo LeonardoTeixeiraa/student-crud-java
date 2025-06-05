@@ -8,7 +8,9 @@ import br.com.projeto_1.dto.FuncionarioDTO;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-
+import java.awt.Image;
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
 /**
  *
  * @author Leonardo
@@ -27,13 +29,13 @@ public class PrincipalVIEW extends javax.swing.JFrame {
     private FuncionarioDTO funcionarioDTO;
 
     public PrincipalVIEW(FuncionarioDTO funcionarioDTO) {
-        this.funcionarioDTO = funcionarioDTO; // armazena o usuário logado
+        this.funcionarioDTO = funcionarioDTO; 
         initComponents();
 
         desktopPane = new javax.swing.JDesktopPane(); 
         this.setContentPane(desktopPane);
 
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // inicia maximizado
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
         setLocationRelativeTo(null);
     }
 
@@ -42,7 +44,7 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         desktopPane = new javax.swing.JDesktopPane();
         this.setContentPane(desktopPane);
-        this.setExtendedState(MAXIMIZED_BOTH); // Tela cheia
+        this.setExtendedState(MAXIMIZED_BOTH); 
         this.setVisible(true);
 
         if (abrirCadastroAluno) {
@@ -94,7 +96,16 @@ public class PrincipalVIEW extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        desktopPane = new javax.swing.JDesktopPane();
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/br/com/projeto_1/view/icones/tela_inicial.png"));
+        Image image = imageIcon.getImage();
+        desktopPane = new javax.swing.JDesktopPane() {
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
+        ;
+        jLabel1 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         itemMenuCliente = new javax.swing.JMenuItem();
@@ -105,6 +116,10 @@ public class PrincipalVIEW extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_1/view/icones/tela_inicial.png"))); // NOI18N
+        desktopPane.add(jLabel1);
+        jLabel1.setBounds(0, 0, 890, 570);
 
         menuCadastro.setMnemonic('f');
         menuCadastro.setText("Cadastro");
@@ -211,6 +226,7 @@ public class PrincipalVIEW extends javax.swing.JFrame {
     private javax.swing.JMenuItem ItemMenuTransporte;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuItem itemMenuCliente;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu menuCadastro;

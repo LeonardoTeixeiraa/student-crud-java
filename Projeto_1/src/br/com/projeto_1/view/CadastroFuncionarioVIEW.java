@@ -156,7 +156,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
             }
         });
 
-        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/1564491_add_create_new_plus_icon(1).png"))); // NOI18N
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_1/view/icones/1564491_add_create_new_plus_icon(1).png"))); // NOI18N
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,7 +165,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
         });
 
         btnSalvar.setBackground(new java.awt.Color(0, 153, 0));
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/2639912_save_icon(1).png"))); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_1/view/icones/2639912_save_icon(1).png"))); // NOI18N
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,7 +173,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
             }
         });
 
-        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/9004772_cross_delete_cancel_remove_icon.png"))); // NOI18N
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_1/view/icones/9004772_cross_delete_cancel_remove_icon.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +182,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
         });
 
         btnExcluir.setBackground(new java.awt.Color(255, 0, 0));
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/8664938_trash_can_delete_remove_icon.png"))); // NOI18N
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_1/view/icones/8664938_trash_can_delete_remove_icon.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,7 +190,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/9104334_sign out_logout_exit_out_icon(1).png"))); // NOI18N
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_1/view/icones/9104334_sign out_logout_exit_out_icon(1).png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +203,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Nome:");
 
-        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/3844432_magnifier_search_zoom_icon(2).png"))); // NOI18N
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/projeto_1/view/icones/3844432_magnifier_search_zoom_icon(2).png"))); // NOI18N
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarActionPerformed(evt);
@@ -367,7 +367,7 @@ public class CadastroFuncionarioVIEW extends javax.swing.JInternalFrame {
                     .addComponent(btnCancelar)
                     .addComponent(btnExcluir)
                     .addComponent(btnSair))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
