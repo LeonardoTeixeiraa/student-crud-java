@@ -11,6 +11,24 @@ package br.com.projeto_1.dto;
 public class PontoEmbarqueDTO {
     private int id_ponto;
     private int id_transporte;
+    private String descricao_ponto;
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+    private String cidade;
+
+    public String getDescricao_ponto() {
+        return descricao_ponto;
+    }
+
+    public void setDescricao_ponto(String descricao_ponto) {
+        this.descricao_ponto = descricao_ponto;
+    }
 
     public int getId_ponto() {
         return id_ponto;
