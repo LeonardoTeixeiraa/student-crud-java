@@ -38,26 +38,6 @@ public class LoginVIEW extends javax.swing.JFrame {
         msgErro.setText("");
     }
 
-    private void logar() {
-        if (!verificaPreenchimento()) {
-            return;
-        }
-
-        funcionarioDTO.setLogin_fun(login_fun.getText());
-        funcionarioDTO.setSenha_fun(String.valueOf(senha_fun.getPassword()));
-
-        String tipo = funcionarioCTR.logarFuncionario(funcionarioDTO);
-        funcionarioDTO.setCargo_fun(tipo);
-
-        if (tipo != null && !tipo.isEmpty()) {
-            this.dispose();
-            new PrincipalVIEW(funcionarioDTO).setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Login ou senha incorretos!!!");
-            limpaCampos();
-        }
-    }
-
     private boolean verificaPreenchimento() {
         if (login_fun.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "O campo Login deve ser preenchido!");

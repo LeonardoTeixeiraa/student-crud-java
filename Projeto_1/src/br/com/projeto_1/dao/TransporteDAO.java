@@ -115,35 +115,4 @@ public class TransporteDAO {
             return rs;
         }
     }
-
-//    public List<Object[]> listarTransportesComPontos() {
-//        List<Object[]> lista = new ArrayList<>();
-//        try {
-//            ConexaoDAO.connectionDB();
-//            String sql = "SELECT t.id_transporte, t.placa_transp, t.tipo_transp, "
-//                    + "t.horario_saida, t.capacidade, p.descricao_ponto "
-//                    + "FROM transporte t "
-//                    + "LEFT JOIN ponto_embarque p ON p.id_transporte = t.id_transporte "
-//                    + "ORDER BY t.id_transporte";
-//
-//            Statement stmt = ConexaoDAO.conn.createStatement();
-//            ResultSet rs = stmt.executeQuery(sql);
-//            while (rs.next()) {
-//                lista.add(new Object[]{
-//                    rs.getInt("id_transporte"),
-//                    rs.getString("placa_transp"),
-//                    rs.getString("tipo_transp"),
-//                    rs.getString("horario_saida"),
-//                    rs.getInt("capacidade"),
-//                    rs.getString("descricao_ponto")
-//                });
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Erro: " + e.getMessage());
-//        } finally {
-//            ConexaoDAO.closeDB();
-//        }
-//        return lista;
-//    }
-
 }

@@ -15,7 +15,6 @@ public class FuncionarioDAO {
         ConexaoDAO.connectionDB();
         stmt = ConexaoDAO.conn.createStatement();
 
-        // 1. Inserir na tabela funcionario
         String comandoFuncionario = "INSERT INTO funcionario (nome_fun, cpf_fun, login_fun, senha_fun, cargo_fun) VALUES ("
                 + "'" + funcionarioDTO.getNome_fun() + "', "
                 + "'" + funcionarioDTO.getCpf_fun() + "', "
@@ -23,14 +22,12 @@ public class FuncionarioDAO {
                 + "crypt('" + funcionarioDTO.getSenha_fun() + "', gen_salt('bf', 8)), "
                 + "'" + funcionarioDTO.getCargo_fun() + "') RETURNING id_fun";
 
-        // Executa e obtém o id do funcionário inserido
         ResultSet rs = stmt.executeQuery(comandoFuncionario);
         int idFuncionario = -1;
         if (rs.next()) {
             idFuncionario = rs.getInt("id_fun");
         }
 
-        // 2. Se o DTO for um motorista, insere na tabela motorista
         if (funcionarioDTO instanceof MotoristaDTO ) {
             MotoristaDTO motoristaDTO = (MotoristaDTO) funcionarioDTO;
             String comandoMotorista = "INSERT INTO motorista (id_fun, cnh_fun) VALUES ("

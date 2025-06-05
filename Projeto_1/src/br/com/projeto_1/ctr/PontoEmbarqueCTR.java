@@ -12,5 +12,4 @@ import br.com.projeto_1.dto.PontoEmbarqueDTO;
  */
 public class PontoEmbarqueCTR {
     PontoEmbarqueDAO pontoDAO = new PontoEmbarqueDAO();
-
 }
